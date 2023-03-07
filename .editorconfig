@@ -1,0 +1,8 @@
+﻿[*.cs]
+
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = none
+csharp_indent_case_contents_when_block=true
+
+[*.{cs,vb}]
+end_of_line=lf
