@@ -49,7 +49,7 @@ namespace PlayerEngine.Data {
         static void CheckForUpdates() {
             //EngineData = JsonSerializer.Deserialize<EngineData>(Settings.Default.SerializedData, new JsonSerializerOptions() { IncludeFields = true, WriteIndented = true }) ;
             using WebClient wc = new();
-            EngineData = JsonSerializer.Deserialize<EngineData>(wc.DownloadString("https://raw.githubusercontent.com/The-Architect01/Dungeons-and-Dragons-Player-Maker/master/Test.json"), new JsonSerializerOptions() { IncludeFields = true, WriteIndented = true });
+            EngineData = JsonSerializer.Deserialize<EngineData>(wc.DownloadString("https://raw.githubusercontent.com/The-Architect01/Dungeons-and-Dragons-Player-Desktop/master/OfficialBooks.json"), new JsonSerializerOptions() { IncludeFields = true, WriteIndented = true });
             EngineData.SplashImageBase64 = Convert.ToBase64String(wc.DownloadData(EngineData.SplashImageURL));
             //System.Windows.Forms.MessageBox.Show(Convert.ToBase64String(wc.DownloadData(EngineData.SplashImageURL)));
         }
