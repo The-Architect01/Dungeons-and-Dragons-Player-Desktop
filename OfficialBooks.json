@@ -61,8 +61,39 @@
           "CastingAbility": 5,
           "HitDie": 2,
           "Proficiencies": null,
-          "EquipmentOptions": null,
-          "Abilities": null
+          "EquipmentOptions": [
+            [
+              "Rapier",
+              "Longsword",
+              "Any Simple Weapon"
+            ],
+            [
+              "Diplomat's Pack",
+              "Entertainer's Pack"
+            ],
+            [
+              "Lute",
+              "Any Musical Instrument"
+            ],
+            [
+              "Leather Armor and a Dagger"
+            ]
+          ],
+          "Abilities": [
+            "Spellcasting",
+            "Bardic Inspiration",
+            "Jack of All Trades", "Song of Rest",
+            "Expertise",
+            "Bonus Proficiencies",
+            "Cutting Words",
+            "Ability Score Improvement",
+            "Font of Inspiration",
+            "Countermeasure",
+            "Additional Magical Secrets",
+            "Magical Secrets",
+            "Peerless Skill",
+            "Superior Inspiration"
+          ]
         }
       ],
       "Backgrounds": [
