@@ -77,22 +77,30 @@
             "Any Skill"
           ],
           "EquipmentOptions": [
-            [
-              "Rapier",
-              "Longsword",
-              "Any Simple Weapon"
-            ],
-            [
-              "Diplomat's Pack",
-              "Entertainer's Pack"
-            ],
-            [
-              "Lute",
-              "Any Musical Instrument"
-            ],
-            [
-              "Leather Armor and a Dagger"
-            ]
+            {
+              "Options": [
+                "Rapier",
+                "Longsword",
+                "Any Simple Weapon"
+              ]
+            },
+            {
+             "Options": [
+                "Diplomat's Pack",
+                "Entertainer's Pack"
+              ]
+            },
+            {
+             "Options": [
+                "Lute",
+                "Any Musical Instrument"
+              ]
+            },
+            {
+              "Options": [
+                "Leather Armor and a Dagger"
+              ]
+            }
           ],
           "Abilities": [
             "Spellcasting",
