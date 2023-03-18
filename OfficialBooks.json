@@ -103,19 +103,76 @@
             }
           ],
           "Abilities": [
-            "Spellcasting",
-            "Bardic Inspiration",
-            "Jack of All Trades", "Song of Rest",
-            "Expertise",
-            "Bonus Proficiencies",
-            "Cutting Words",
-            "Ability Score Improvement",
-            "Font of Inspiration",
-            "Countermeasure",
-            "Additional Magical Secrets",
-            "Magical Secrets",
-            "Peerless Skill",
-            "Superior Inspiration"
+            {
+              "Name": "Spellcasting",
+              "Description": "",
+              "LevelUnlocked": 1
+            },
+            {
+              "Name": "Bardic Inspiration",
+              "Description": "",
+              "LevelUnlocked": 2
+            },
+            {
+              "Name": "Jack of All Trades",
+              "Description": "",
+              "LevelUnlocked": 3
+            },
+            {
+              "Name": "Song of Rest",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Expertise",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Bonus Proficiencies",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Cutting Words",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Ability Score Improvement",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Font of Inspiration",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Countermeasure",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Additional Magical Secrets",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Magical Secrets",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Peerless Skill",
+              "Description": "",
+              "LevelUnlocked": 0
+            },
+            {
+              "Name": "Superior Inspiration",
+              "Description": "",
+              "LevelUnlocked": 0
+            }
           ]
         }
       ],
