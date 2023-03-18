@@ -61,7 +61,7 @@
           "CastingAbility": 5,
           "HitDie": 2,
           "Proficiencies": null,
-          "EquipmentOptions": [
+          "EquipmentOptions": {
             [
               "Rapier",
               "Longsword",
@@ -78,7 +78,7 @@
             [
               "Leather Armor and a Dagger"
             ]
-          ],
+          },
           "Abilities": [
             "Spellcasting",
             "Bardic Inspiration",
