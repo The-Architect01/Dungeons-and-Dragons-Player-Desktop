@@ -60,8 +60,23 @@
           "IsHalfCaster": false,
           "CastingAbility": 5,
           "HitDie": 2,
-          "Proficiencies": null,
-          "EquipmentOptions": {
+          "Proficiencies": [
+            "Light Armor",
+            "Simple Weapons",
+            "Hand Crossbows",
+            "Longswords",
+            "Rapiers",
+            "Shortswords",
+            "Any Musical Instrument",
+            "Any Musical Instrument",
+            "Any Musical Instrument",
+            "Dextarity",
+            "Charisma",
+            "Any Skill",
+            "Any Skill",
+            "Any Skill"
+          ],
+          "EquipmentOptions": [
             [
               "Rapier",
               "Longsword",
@@ -78,7 +93,7 @@
             [
               "Leather Armor and a Dagger"
             ]
-          },
+          ],
           "Abilities": [
             "Spellcasting",
             "Bardic Inspiration",
