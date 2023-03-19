@@ -94,7 +94,7 @@
             },
             {
               "Options": [
-                "Leather Armor and a Dagger"
+                "Leather Armor, and a Dagger"
               ]
             }
           ],
@@ -184,6 +184,17 @@
           "Skills": [
             "Animal Handling",
             "Survival"
+          ],
+          "Tools": [
+            "Choose One Artisan Tools",
+            "Land Vehicles"
+          ],
+          "Items": [
+            "Choose One Artisan Tools",
+            "a shovel",
+            "an iron pot",
+            "a set of common clothes",
+            "and 10gp"
           ]
         }
       ],
