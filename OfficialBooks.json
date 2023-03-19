@@ -61,20 +61,16 @@
           "CastingAbility": 5,
           "HitDie": 2,
           "Proficiencies": [
+            "Dextarity",
+            "Charisma",
             "Light Armor",
             "Simple Weapons",
             "Hand Crossbows",
             "Longswords",
             "Rapiers",
             "Shortswords",
-            "Any Musical Instrument",
-            "Any Musical Instrument",
-            "Any Musical Instrument",
-            "Dextarity",
-            "Charisma",
-            "Any Skill",
-            "Any Skill",
-            "Any Skill"
+            "Choose Three Instruments",
+            "Choose Three Skills"
           ],
           "EquipmentOptions": [
             {
