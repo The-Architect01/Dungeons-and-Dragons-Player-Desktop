@@ -1,5 +1,6 @@
     {
       "Name": "Player's Handbook",
+      "Description": "The core book to create characters in D&D and contains the base rules for creating characters.",
       "ReferenceCode": "PHB",
       "Lineages": [
         {
