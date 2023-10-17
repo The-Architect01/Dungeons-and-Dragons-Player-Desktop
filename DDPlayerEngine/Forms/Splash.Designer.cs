@@ -79,7 +79,6 @@ namespace PlayerEngine.Forms {
             // Splash
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1023, 550);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Version);

@@ -46,6 +46,7 @@ namespace PlayerEngine.Forms {
             this.HomebrewItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HomebrewSpell = new System.Windows.Forms.ToolStripMenuItem();
             this.ExportHomebrew = new System.Windows.Forms.ToolStripMenuItem();
+            this.importHomebrewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +89,7 @@ namespace PlayerEngine.Forms {
             this.randomToolStripMenuItem,
             this.adoptACharacterToolStripMenuItem});
             this.newCharacterToolStripMenuItem.Name = "newCharacterToolStripMenuItem";
-            this.newCharacterToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.newCharacterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newCharacterToolStripMenuItem.Text = "New Character";
             // 
             // classicToolStripMenuItem
@@ -102,6 +103,7 @@ namespace PlayerEngine.Forms {
             // 
             // questionaireToolStripMenuItem
             // 
+            this.questionaireToolStripMenuItem.Enabled = false;
             this.questionaireToolStripMenuItem.Name = "questionaireToolStripMenuItem";
             this.questionaireToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.questionaireToolStripMenuItem.Text = "Questionaire";
@@ -110,6 +112,7 @@ namespace PlayerEngine.Forms {
             // 
             // randomToolStripMenuItem
             // 
+            this.randomToolStripMenuItem.Enabled = false;
             this.randomToolStripMenuItem.Name = "randomToolStripMenuItem";
             this.randomToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.randomToolStripMenuItem.Text = "Random";
@@ -121,18 +124,19 @@ namespace PlayerEngine.Forms {
             this.adoptACharacterToolStripMenuItem.Name = "adoptACharacterToolStripMenuItem";
             this.adoptACharacterToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.adoptACharacterToolStripMenuItem.Text = "Adopt a Character";
+            this.adoptACharacterToolStripMenuItem.Click += new System.EventHandler(this.AdoptACharacterToolStripMenuItem_Click);
             // 
             // loadCharacterToolStripMenuItem
             // 
             this.loadCharacterToolStripMenuItem.Name = "loadCharacterToolStripMenuItem";
-            this.loadCharacterToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.loadCharacterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadCharacterToolStripMenuItem.Text = "Load Character";
             this.loadCharacterToolStripMenuItem.Click += new System.EventHandler(this.LoadCharacterToolStripMenuItem_Click);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItem_Click);
             // 
@@ -140,7 +144,9 @@ namespace PlayerEngine.Forms {
             // 
             this.HomebrewToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CreateHomebrew,
-            this.ExportHomebrew});
+            this.ExportHomebrew,
+            this.importHomebrewToolStripMenuItem});
+            this.HomebrewToolsToolStripMenuItem.Enabled = false;
             this.HomebrewToolsToolStripMenuItem.Name = "HomebrewToolsToolStripMenuItem";
             this.HomebrewToolsToolStripMenuItem.Size = new System.Drawing.Size(84, 21);
             this.HomebrewToolsToolStripMenuItem.Text = "Homebrew";
@@ -153,8 +159,9 @@ namespace PlayerEngine.Forms {
             this.HomebrewBackground,
             this.HomebrewItem,
             this.HomebrewSpell});
+            this.CreateHomebrew.Enabled = false;
             this.CreateHomebrew.Name = "CreateHomebrew";
-            this.CreateHomebrew.Size = new System.Drawing.Size(182, 22);
+            this.CreateHomebrew.Size = new System.Drawing.Size(183, 22);
             this.CreateHomebrew.Text = "Create Homebrew";
             // 
             // HomebrewLineage
@@ -194,10 +201,18 @@ namespace PlayerEngine.Forms {
             // 
             // ExportHomebrew
             // 
+            this.ExportHomebrew.Enabled = false;
             this.ExportHomebrew.Name = "ExportHomebrew";
-            this.ExportHomebrew.Size = new System.Drawing.Size(182, 22);
+            this.ExportHomebrew.Size = new System.Drawing.Size(183, 22);
             this.ExportHomebrew.Text = "Export Homebrew";
             this.ExportHomebrew.Click += new System.EventHandler(this.ExportHomebrew_Click);
+            // 
+            // importHomebrewToolStripMenuItem
+            // 
+            this.importHomebrewToolStripMenuItem.Name = "importHomebrewToolStripMenuItem";
+            this.importHomebrewToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.importHomebrewToolStripMenuItem.Text = "Import Homebrew";
+            this.importHomebrewToolStripMenuItem.Click += new System.EventHandler(this.ImportHomebrewToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -213,15 +228,16 @@ namespace PlayerEngine.Forms {
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingsToolStripMenuItem.Text = "Enable Rulesets";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Visible = false;
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.UpdateToolStripMenuItem_Click);
             // 
             // label2
@@ -251,7 +267,7 @@ namespace PlayerEngine.Forms {
             // MainMenu
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1007, 541);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Version);
@@ -297,5 +313,6 @@ namespace PlayerEngine.Forms {
         private System.Windows.Forms.ToolStripMenuItem HomebrewBackground;
         private System.Windows.Forms.ToolStripMenuItem HomebrewItem;
         private System.Windows.Forms.ToolStripMenuItem HomebrewSpell;
+        private System.Windows.Forms.ToolStripMenuItem importHomebrewToolStripMenuItem;
     }
 }
