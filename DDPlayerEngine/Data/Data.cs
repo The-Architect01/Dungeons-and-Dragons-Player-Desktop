@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerEngine.Data {
 
@@ -22,6 +23,77 @@ namespace PlayerEngine.Data {
         /// The list of all currently available books for the editor.
         /// </summary>
         public List<Book> Books { get; set; } = new List<Book>();
+
+        public string[] LANGUAGES { get; set; } = new string[] {
+            "Common", "Dwarvish", "Elvish", "Giant", "Gnomish",
+            "Goblin", "Halfling", "Orc", "Abyssal", "Celestial",
+            "Deep Speech", "Draconic", "Infernal", "Primordial",
+            "Sylvan", "Undercommon"
+        };
+        public string[] SKILLS { get; set; } = new string[] {
+            "Athletics", "Acrobatics", "Sleight of Hand",
+            "Stealth", "Arcana", "History", "Investigation",
+            "Nature", "Religion", "Animal Handling", "Insight",
+            "Medicine", "Perception", "Survival", "Intimidation",
+            "Performance", "Persuasion"
+        };
+        public string[] TOOLS { get; set; } = new string[] {
+            "Alchemist’s supplies", "Brewer’s supplies", "Calligrapher's Supplies", "Carpenter’s tools", "Cartographer’s tools",
+            "Cobbler’s tools", "Cook’s utensils", "Glassblower’s tools",
+            "Jeweler’s tools", "Leatherworker’s tools", "Mason’s tools",
+            "Painter’s supplies", "Potter’s tools", "Smith’s tools",
+            "Tinker’s tools", "Weaver’s tools", "Woodcarver’s tools",
+            "Dice set", "Playing card set", "Bagpipes", "Drum", "Dulcimer",
+            "Flute", "Lute", "Lyre", "Horn", "Pan flute", "Shawm", "Viol",
+            "Navigator’s tools", "Thieves’ tools", "Land Vehicles", "Water Vehicles"
+        };
+        public string[] SIMPLE_WEAPONS { get; set; } = new string[] {
+            "Club", "Dagger", "Greatclub", "Handaxe", "Javelin",
+            "Light Hammer", "Mace", "Quarterstaff", "Sickle",
+            "Spear", "Light Crossbow", "Dart", "Shortbow", "Sling"
+        };
+        public string[] MARTIAL_WEAPONS { get; set; } = new string[] {
+            "Battleaxe", "Flail", "Glaive", "Greataxe", "Greatsword",
+            "Halberd", "Lance", "Longsword", "Maul", "Morningstar",
+            "Pike", "Rapier", "Scimitar", "Shortsword", "Trident",
+            "War pick", "Warhammer", "Whip", "Blowgun", "Heavy Crossbow",
+            "Hand Crossbow", "Longbow", "Net"
+        };
+        public string[] INSTRUMENTS { get; set; } = new string[] {
+            "Bagpipes", "Drum", "Dulcimer", "Flute", "Lute", "Lyre",
+            "Horn", "Pan flute", "Shawm", "Viol"
+        };
+        public string[] ARTISAN_TOOLS { get; set; } = new string[] {
+            "Alchemist’s supplies", "Brewer’s supplies",
+            "Calligrapher's Supplies", "Carpenter’s tools",
+            "Cartographer’s tools", "Cobbler’s tools", "Cook’s utensils",
+            "Glassblower’s tools", "Jeweler’s tools",
+            "Leatherworker’s tools", "Mason’s tools", "Painter’s supplies",
+            "Potter’s tools", "Smith’s tools", "Tinker’s tools",
+            "Weaver’s tools", "Woodcarver’s tools"
+        };
+        public string[] MELEE_WEAPONS { get; set; } = new string[] {
+            "Club", "Dagger", "Greatclub", "Handaxe", "Javelin",
+            "Light Hammer", "Mace", "Quarterstaff", "Sickle", "Spear",
+            "Battleaxe", "Flail", "Glaive", "Greataxe", "Greatsword",
+            "Halberd", "Lance", "Longsword", "Maul", "Morningstar",
+            "Pike", "Rapier", "Scimitar", "Shortsword", "Trident",
+            "War pick", "Warhammer", "Whip"
+        };
+        public string[] RANGE_WEAPONS { get; set; } = new string[] {
+            "Light Crossbow", "Dart", "Shortbow", "Sling", "Blowgun",
+            "Heavy Crossbow", "Hand Crossbow", "Longbow", "Net"
+        };
+        public string[] ARMORS { get; } = new string[] {
+            "Light", "Medium", "Heavy", "Shields"
+        };
+
+    }
+
+    [Serializable]
+    public class Homebrew : Book {
+        public string Creator { get; set; }
+
     }
 
     /// <summary>
@@ -33,7 +105,9 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The name of the book.
         /// </summary>
-        public string Name { get;set; }
+        public string Name { get; set; }
+
+        public string Description { get; set; }
         /// <summary>
         /// The code used to reference the book throughout the code.
         /// </summary>
@@ -118,8 +192,8 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// What traits the race has.
         /// </summary>
-        public List<LineageTrait> RacialTraits { get; set; } = new List<LineageTrait>();
-
+        public List<LineageTrait> LineageTraits { get; set; } = new List<LineageTrait>();
+        public int Darkvision { get; set; }
         /// <summary>
         /// Retrives the specified data.
         /// </summary>
@@ -154,7 +228,9 @@ namespace PlayerEngine.Data {
         /// </summary>
         public string ResourceBase64 { get; set; }
         public string Overview { get; set; }
+        public string ResourceSource { get; set; }
         public string Creator { get; set; }
+        public int Level { get; set; } = 1;
         /// <summary>
         /// Represents if the class can cast up to level 9 spells.
         /// </summary>
@@ -191,7 +267,9 @@ namespace PlayerEngine.Data {
         /// <param name="data">The data to retrieve</param>
         /// <returns></returns>
         public string FindData(string data) {
-            return data;
+            foreach (ClassAbility CA in Abilities)
+                if (CA.Name == data) return CA.Description;
+            return string.Empty;
         }
     }
 
@@ -245,6 +323,8 @@ namespace PlayerEngine.Data {
         /// </summary>
         public string[] Flaws { get; set; }
 
+
+
         /// <summary>
         /// Retrives the specified data.
         /// </summary>
@@ -253,7 +333,7 @@ namespace PlayerEngine.Data {
         public string FindData(string Data) {
             return Data == Feature.Name ? Feature.Description : "";
         }
-        
+
     }
     #endregion
 
@@ -267,7 +347,14 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The level of the character
         /// </summary>
-        public int Level { get; set; } = 1;
+        public int Level {
+            get {
+                int lv = 0;
+                foreach (Class c in this.Class) lv += c.Level;
+                return lv;
+            }
+        }
+        public string Illustration { get; set; }
         /// <summary>
         /// The name of the character
         /// </summary>
@@ -280,10 +367,34 @@ namespace PlayerEngine.Data {
         /// The class used to create the character
         /// </summary>
         public List<Class> Class { get; set; } = new List<Class>();
+        public bool IsMagicUser {
+            get {
+                foreach (Class c in this.Class) if (!c.IsFullCaster && !c.IsHalfCaster) return false;
+                return true;
+            }
+        }
+
+        public int SpellBonus {
+            get {
+                return Engine.Proficincy(Level) + Stats[(int)Class[0].CastingAbility].Modifier;
+            }
+        }
+
+        public int SpellDC {
+            get {
+                return 8 + Engine.Proficincy(Level) + Stats[(int)Class[0].CastingAbility].Modifier;
+            }
+        }
+
         /// <summary>
         /// The background used to create the character
         /// </summary>
         public Background Background { get; set; }
+        public List<string> BackgroundPersonalites { get; set; } = new List<string>();
+        public List<string> BackgroundIdeals { get; set; } = new List<string>();
+        public List<string> BackgroundBonds { get; set; } = new List<string>();
+        public List<string> BackgroundFlaws { get; set; } = new List<string>();
+
 
         //Hit Point Data
         /// <summary>
@@ -293,7 +404,17 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The maximum number of hit points of the character
         /// </summary>
-        public int MaxHitPoints { get; set; } = 1;
+        public int MaxHitPoints {
+            get {
+                int hp = 0;
+                foreach (Class c in Class) {
+                    for (int i = 1; i <= c.Level; i++) {
+                        if (i != 1) hp += (c.HitDie.ParseHitDie() + 1) / 2; else hp += c.HitDie.ParseHitDie();
+                    }
+                }
+                return hp;
+            }
+        }
         /// <summary>
         /// The amount of temporary hit points of the character
         /// </summary>
@@ -303,7 +424,16 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The armor class of the character
         /// </summary>
-        public int ArmorClass { get; set; }
+        public int ArmorClass { get; set; } = 12;
+
+        /// <summary>
+        /// The initiative bonus of the character
+        /// </summary>
+        public int Initiative {
+            get {
+                return Stats[1].Modifier + (Feats.Where(feat => feat.Name == "Alert").Count() != 0 ? 5 : 0);
+            }
+        }
         /// <summary>
         /// Does the character have inspiration
         /// </summary>
@@ -313,11 +443,34 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The skills that the character has
         /// </summary>
-        public Skill[] Skills { get; set; } = new Skill[18];
-        /// <summary>
+        public Skill[] Skills { get; set; } = new Skill[] {
+            new Skill() { BaseStat = StatName.DEX, Name = "Acrobatics", Description = "This skill measures how well you can stay on your feet in a tricky situtation, such as when you are running across ice, balance, or stay upright. It also covers acrobatic stunts such as dives, rolls, flips, etc." },
+            new Skill() { BaseStat = StatName.WIS, Name = "Animal Handling", Description = "This stat measures how well you can calm down or find the intentions of wild animals, mounts, or domesticated animals." },
+            new Skill() { BaseStat = StatName.INT, Name = "Arcana", Description = "This stat measures how well you can recall lore about spells, magic items, eldritch symbols, magical traditions, the planes of existence, and the inhabitants of those planes." },
+            new Skill() { BaseStat = StatName.STR, Name = "Athletics", Description = "This stat measures how well you can overcome challengs like climbing, jumping, or swimming." },
+            new Skill() { BaseStat = StatName.CHA, Name = "Deception", Description = "This stat measures how well you can convincingly hide the truth, either verbally or through your actions. This can encompass everything from misleading others through ambiguity to telling outright lies. This includes fast-talking a guard or con a merchant." },
+            new Skill() { BaseStat = StatName.INT, Name = "History", Description = "This stat measures your ability to recall lore about historical events, legendary people, ancient kingdoms, past disputes, recent wars, or lost civilizations." },
+            new Skill() { BaseStat = StatName.WIS, Name = "Insight", Description = "This stat measures how well you can determine the true intentions of a creature, such as when searching out a lie or predicting someone's next move. Doing so involves gleaning clues from body langauge, speech habits, and changes in mannerisms." },
+            new Skill() { BaseStat = StatName.CHA, Name = "Intimidation", Description = "This stat measures how well you can influence someone through overt threats, hostile actions, and physical violence. This can include prying information out of a prisoner, convincing street thugs to back down, etc." },
+            new Skill() { BaseStat = StatName.INT, Name = "Investigation", Description = "This stat measures how well you can look for clues and make deductions based on those clues. You might deduce the location of a hidden object, discern from the appearance of a wound what kind of weapon dealt it, etc." },
+            new Skill() { BaseStat = StatName.WIS, Name = "Medicine", Description = "This stat measures how well you can try to stabilize a dying companion or diagnose an illness." },
+            new Skill() { BaseStat = StatName.INT, Name = "Nature", Description = "This stat measures your ability to recall lore about terrain, plants and animals, the weather, or natural cycles." },
+            new Skill() { BaseStat = StatName.WIS, Name = "Perception", Description = "This stat measures your ability to spot, hear, or otherwise detect the presence of something. It measures your general awareness of your surroundings and the keeness of your senses." },
+            new Skill() { BaseStat = StatName.CHA, Name = "Performance", Description = "This stat measures your ability to determine how wel you can delight an audience with music, dance, acting, storytelling, or some other form of entertainment." },
+            new Skill() { BaseStat = StatName.CHA, Name = "Persuasion", Description = "This stat measures your ability to influence someone or a group of people with tact, social graces, or good nature. Such as convincing a chamberlain to let your party see the king, negotiating peace, etc." },
+            new Skill() { BaseStat = StatName.INT, Name = "Religion", Description = "This stat measures your ability to recall lore about dieties, rites and prayers, religious hierarchies, holy symbols, and the practices of secret cults." },
+            new Skill() { BaseStat = StatName.DEX, Name = "Sleight of Hand", Description = "This stat measures your ability to successfully pull off manual trickery, such as planting something on someone else or concealing an object on your person." },
+            new Skill() { BaseStat = StatName.DEX, Name = "Stealth", Description = "This stat measures your ability to conceal yourself from enemies, slink past guards, slip away without being noticed, or sneak up on someone without being seen or heard." },
+            new Skill() { BaseStat = StatName.WIS, Name = "Survival", Description = "This stat measures your ability to follow tracks, hunt wild game, guide your group through frozen wastelands, predict the weather, or avoid natural hazards." }
+        };
+        public string GetData(string DataLookUp) {
+            Skill s = Skills.First(skill => skill.Name == DataLookUp);
+            return $"Name: {s.Name}\nSkill Type: {s.BaseStat}\nDescription: {s.Description}";
+        }
+        /*/// <summary>
         /// The items that the character has
         /// </summary>
-        public List<Item> Items { get; set; } = new List<Item>();
+        public List<Item> Items { get; set; } = new List<Item>();*/
         /// <summary>
         /// The inventory of the player
         /// </summary>
@@ -335,7 +488,7 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The alignment of the character
         /// </summary>
-        public Alignment Alignment;
+        public Alignment Alignment = Alignment.Unaligned;
         /// <summary>
         /// The gender identity of the character
         /// </summary>
@@ -390,7 +543,7 @@ namespace PlayerEngine.Data {
         /// Any extra notes
         /// </summary>
         public string Notes;
-        
+
         //Engine Metadata
         /// <summary>
         /// The creator's name
@@ -406,59 +559,97 @@ namespace PlayerEngine.Data {
         public DateTime LastUpdated { get; set; }
 
         ///<summary>
-        ///The abilities of the character
+        /// The abilities of the character
         /// </summary>
-        public Ability[] Stats { get; set; }
+        public Ability[] Stats { get; set; } = {
+            new Ability() {
+                        Name = StatName.STR,
+                        Description = "Can I smash a tomato",
+                    },
+                    new Ability() {
+                        Name = StatName.DEX,
+                        Description = "Can I leap over a tomato",
+                    },
+                    new Ability() {
+                        Name = StatName.CON,
+                        Description = "Can I eat a bad tomato",
+                    },
+                    new Ability() {
+                        Name = StatName.WIS,
+                        Description = "Do I know that a tomato is a fruit",
+                    },
+                    new Ability() {
+                        Name = StatName.INT,
+                        Description = "Do I know that a tomato should not be in a fruit salad",
+                    },
+                    new Ability() {
+                        Name = StatName.CHA,
+                        Description = "Can I sell a tomato based fruit salad",
+                    }
+        };
+
+        /// <summary>
+        /// The feats that the character has
+        /// </summary>
+        public List<Feat> Feats { get; set; } = new List<Feat>();
+
+        /// <summary>
+        /// The languages that the character speaks
+        /// </summary>
+        public List<Language> Languages { get; set; } = new List<Language>() { Language.Common };
+
+        public List<IData> Proficiencies { get; set; } = new List<IData>();
     }
 
     /// <summary>
     /// An enum representing character alignments
     /// </summary>
     [Serializable]
-    public enum Alignment { 
+    public enum Alignment {
         /// <summary>
         /// Creatures act as their conscience directs with little regard to what others expect
         /// </summary>
-        Chaotic_Good, 
+        Chaotic_Good,
         /// <summary>
         /// Creatures try to do their best to help others according to their needs
         /// </summary>
-        Neutral_Good, 
+        Neutral_Good,
         /// <summary>
         /// Creatures that can be counted on to do the right thing as expected by society
         /// </summary>
-        Lawful_Good, 
+        Lawful_Good,
         /// <summary>
         /// Creatures follow their wims, holding their personal freedom highest
         /// </summary>
-        Chaotic_Neutral, 
+        Chaotic_Neutral,
         /// <summary>
         /// Moral questions? Nah.
         /// </summary>
-        Neutral, 
+        Neutral,
         /// <summary>
         /// Creatures act in accordance with law, tradition, or personal codes
         /// </summary>
-        Lawful_Neutral, 
+        Lawful_Neutral,
         /// <summary>
         /// Creatures act with arbitrary violence
         /// </summary>
-        Chaotic_Evil, 
+        Chaotic_Evil,
         /// <summary>
         /// Creatures who do whatever they can get away with, without compassion or qualms
         /// </summary>
-        Neutral_Evil, 
+        Neutral_Evil,
         /// <summary>
         /// Creatures methodically take what they want, within the limits of a code or tradition
         /// </summary>
-        Lawful_Evil
+        Lawful_Evil,
+        Unaligned
     }
 
     /// <summary>
     /// All data relating to a single skill
     /// </summary>
     [Serializable]
-    public class Skill : IData {
+    public class Skill : IData, IProf {
         /// <summary>
         /// The name of the skill
         /// </summary>
@@ -471,20 +662,11 @@ namespace PlayerEngine.Data {
         /// The base stat of the skill
         /// </summary>
         public StatName BaseStat { get; set; }
-        /// <summary>
-        /// Does the character have half proficincy
-        /// </summary>
-        public bool HasHalfProficincy { get;set; }
-        /// <summary>
-        /// Does the character have proficincy
-        /// </summary>
-        public bool HasProficincy { get; set; }
-        /// <summary>
-        /// Does the character have double proficincy
-        /// </summary>
-        public bool HasExpertise { get; set; }
 
         public string Description { get; set; }
+        public bool HasHalfProficincy { get; set; }
+        public bool HasProficincy { get; set; }
+        public bool HasExpertise { get; set; }
     }
 
     /// <summary>
@@ -503,7 +685,7 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The level of the spell
         /// </summary>
-        public int Level { get; set; }
+        public SpellLevel Level { get; set; }
         /// <summary>
         /// The casting time of the spell
         /// </summary>
@@ -527,7 +709,7 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The spell action requirements
         /// </summary>
-        public Components SpellActions { get; set; }
+        public SpellComponents SpellActions { get; set; }
         /// <summary>
         /// The components required to cast the spell
         /// </summary>
@@ -544,6 +726,17 @@ namespace PlayerEngine.Data {
         /// The description of the spell
         /// </summary>
         public string Description { get; set; }
+
+        public int NumDice { get; set; }
+        public HitDie DamageDie { get; set; }
+        public DamageType DamageType { get; set; }
+
+        public override string ToString() {
+            if (NumDice > 0)
+                return $"{Name}: {CastingTime} : {Range} : {NumDice}{DamageDie} {DamageType}\n";
+            else
+                return $"{Name}: {CastingTime} : {Range}\n";
+        }
 
         /// <summary>
         /// An enum representing schools of magic
@@ -582,36 +775,69 @@ namespace PlayerEngine.Data {
             /// </summary>
             Transmutation
         }
+
+        /// <summary>
+        /// An enum representing Level of spell
+        /// </summary>
+        public enum SpellLevel {
+            Cantrip,
+            First,
+            Second,
+            Third,
+            Fourth,
+            Fifth,
+            Sixth,
+            Seventh,
+            Eighth,
+            Nineth
+        }
+
+        /// <summary>
+        /// The component elements of a spell
+        /// </summary>
+        [Flags]
+        public enum SpellComponents {
+            /// <summary>
+            /// The spell requires some kind of verbal component
+            /// </summary>
+            Verbal = 1 << 0,
+            /// <summary>
+            /// The spell requires specific gestures (REQUIRES at least one hand to perform gesture)
+            /// </summary>
+            Somatic = 1 << 1,
+            /// <summary>
+            /// The spell requires specific objects
+            /// </summary>
+            Material = 1 << 2,
+        }
     }
     #endregion
 
-    #region Data wrappers for specific data
-
+    #region Data wrappers for specific data 
     /// <summary>
-    /// The component elements of a spell
+    /// The different types of damage present
     /// </summary>
     [Serializable]
-    public enum Components { 
-        /// <summary>
-        /// The spell requires some kind of verbal component
-        /// </summary>
-        Verbal = 1<<0,
-        /// <summary>
-        /// The spell requires specific gestures (REQUIRES at least one hand to perform gesture)
-        /// </summary>
-        Somatic = 1 << 1,
-        /// <summary>
-        /// The spell requires specific objects
-        /// </summary>
-        Material = 1 << 2,
+    public enum DamageType {
+        Acid,
+        Bludgeoning,
+        Cold,
+        Fire,
+        Force,
+        Lightning,
+        Necrotic,
+        Piercing,
+        Poison,
+        Psychic,
+        Radiant,
+        Slashing,
+        Thunder
     }
-
-
     /// <summary>
     /// The data wrapper for a single ability.
     /// </summary>
     [Serializable]
-    public class Ability : IData {
+    public class Ability : IData, IProf {
         /// <summary>
         /// The name of the ability score.
         /// </summary>
@@ -626,6 +852,10 @@ namespace PlayerEngine.Data {
         public int Modifier { get { return (int)Math.Floor((Score - 10) / 2f); } }
 
         public string Description { get; set; }
+        public bool HasHalfProficincy { get; set; }
+        public bool HasProficincy { get; set; }
+        public bool HasExpertise { get; set; }
+
         string IData.Name { get { return Name.ToString(); } set { } }
     }
 
@@ -707,7 +937,7 @@ namespace PlayerEngine.Data {
     /// The data wrapper for a single trait granted by a race.
     /// </summary>
     [Serializable]
-    public class LineageTrait : IData {
+    public class LineageTrait : ITrait {
         /// <summary>
         /// The trait's name.
         /// </summary>
@@ -716,13 +946,18 @@ namespace PlayerEngine.Data {
         /// The in depth description of the trait.
         /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// The type the trait falls under
+        /// </summary>
+        public ITrait.TraitType Type { get; set; }
+        public IData TraitData { get; set; }
     }
 
     /// <summary>
     /// The data wrapper for a single trait granted by a class.
     /// </summary>
     [Serializable]
-    public class ClassAbility : IData {
+    public class ClassAbility : ITrait {
         /// <summary>
         /// The name of the trait.
         /// </summary>
@@ -732,9 +967,14 @@ namespace PlayerEngine.Data {
         /// </summary>
         public string Description { get; set; }
         /// <summary>
+        /// The type the trait falls under
+        /// </summary>
+        public ITrait.TraitType Type { get; set; }
+        /// <summary>
         /// The level the trait unlock at.
         /// </summary>
         public int LevelUnlocked { get; set; }
+        public IData TraitData { get; set; }
     }
 
     /// <summary>
@@ -772,7 +1012,15 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// A d12
         /// </summary>
-        d12
+        d12,
+        /// <summary>
+        /// A d20
+        /// </summary>
+        d20,
+        /// <summary>
+        /// A d100
+        /// </summary>
+        d100
     }
 
     /// <summary>
@@ -795,6 +1043,56 @@ namespace PlayerEngine.Data {
     /// </summary>
     [Serializable]
     public class Item : IData {
+
+        [Serializable]
+        [Flags]
+        public enum ItemType {
+            Other = 1 << 0,
+            Armor = 1 << 1,
+            Potion = 1 << 2,
+            Ring = 1 << 3,
+            Rod = 1 << 4,
+            Scroll = 1 << 5,
+            Staff = 1 << 6,
+            Wand = 1 << 7,
+            Wonderous = 1 << 8,
+            SimpleMeleeWeapon = 1 << 9,
+            MartialMeleeWeapon = 1 << 10,
+            SimpleRangeWeapon = 1 << 11,
+            MartialRangeWeapon = 1 << 12,
+            AdventureGear = 1 << 13,
+            Ammunition = 1 << 14,
+            ArcaneFocus = 1 << 15,
+            ArtisanTool = 1 << 16,
+            GamingSet = 1 << 17,
+            MusicalInstrument = 1 << 18,
+            Tool = 1 << 19,
+            Vehicle = 1 << 20,
+            Trinket = 1 << 21,
+            TradeGood = 1 << 22,
+            Food = 1 << 23,
+            Treasure = 1 << 24,
+            Coin = 1 << 25
+        }
+        [Serializable]
+        [Flags]
+        public enum WeaponProps {
+            None = 0,
+            Ammunition = 1 << 0,
+            Finesse = 1 << 1,
+            Heavy = 1 << 2,
+            Light = 1 << 3,
+            Loading = 1 << 4,
+            Range = 1 << 5,
+            Reach = 1 << 6,
+            Special = 1 << 7,
+            Thrown = 1 << 8,
+            TwoHanded = 1 << 9,
+            Versatile = 1 << 10,
+            Imporvised = 1 << 11,
+            Silvered = 1 << 12,
+        }
+
         /// <summary>
         /// The Item's name.
         /// </summary>
@@ -802,7 +1100,7 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// The type of item
         /// </summary>
-        public string Type { get; set; }
+        public ItemType Type { get; set; } = ItemType.Other;
         /// <summary>
         /// Is the item equipped
         /// </summary>
@@ -816,6 +1114,10 @@ namespace PlayerEngine.Data {
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
+        /// The type of damage the item does if applicable
+        /// </summary>
+        public DamageType DamageType { get; set; }
+        /// <summary>
         /// How many dice are rolled
         /// </summary>
         public int DiceForDamage { get; set; }
@@ -828,6 +1130,10 @@ namespace PlayerEngine.Data {
         /// </summary>
         public decimal Weight { get; set; }
         /// <summary>
+        /// The properties of the weapon if the item is a weapon
+        /// </summary>
+        public WeaponProps WeaponProperties { get; set; } = WeaponProps.None;
+        /// <summary>
         /// The properties of the item
         /// </summary>
         public string[] Properties { get; set; }
@@ -839,24 +1145,91 @@ namespace PlayerEngine.Data {
         /// The description of the item
         /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// The amount the character has
+        /// </summary>
+        public int Amount { get; set; } = 0;
+
+        public bool IsWeapon {
+            get {
+                return Type.HasFlag(ItemType.SimpleMeleeWeapon) ||
+                Type.HasFlag(ItemType.MartialMeleeWeapon) ||
+                Type.HasFlag(ItemType.MartialRangeWeapon) ||
+                Type.HasFlag(ItemType.SimpleRangeWeapon);
+            }
+        }
+
+        public string ParseAsWeapon(Character PC) {
+            bool IsMelee = Type.HasFlag(ItemType.SimpleMeleeWeapon) || Type.HasFlag(ItemType.MartialMeleeWeapon);
+            bool IsProficient = PC.Proficiencies.Contains(this);
+
+            return $"{Name} :: {(PC.Stats[(IsMelee ? 0 : 1)].Modifier + (IsProficient ? Engine.Proficincy(PC.Level) : 0)).ParseAsString()}" +
+                $" :: {DiceForDamage}{DiceToRoll} {PC.Stats[(IsMelee ? 0 : 1)].Modifier.ParseAsString()} ({(IsMelee ? "Melee" : "Ranged")})\n";
+        }
+
+        public string TryParseItem() {
+            if (!IsWeapon) return $"{Name}{(Amount > 1 ? $" x{Amount}" : "")}; ";
+            return string.Empty;
+        }
     }
 
     /// <summary>
     /// The data contained for a single language
     /// </summary>
     [Serializable]
-    public class Languages : IData {
+    public class Language : IData {
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public static readonly Language Common = new(){
+            Name = "Common",
+            Description = ""
+        };
     }
 
     /// <summary>
     /// A data wrapper for features
     /// </summary>
     [Serializable]
-    public class Feature : IData {
+    public class Feature : ITrait {
         public string Name { get; set; }
         public string Description { get; set; }
+        public ITrait.TraitType Type { get; set; } = ITrait.TraitType.Other;
+        public IData TraitData { get; set; }
+    }
+
+    /// <summary>
+    /// A data wrapper for Feats
+    /// </summary>
+    [Serializable]
+    public class Feat : IData {
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public KeyValuePair<object, object>[] Prerequisites { get; set; }
+        public Feature[] FeaturesGranted { get; set; }
+    }
+
+    /// <summary>
+    /// A required data field for traits
+    /// </summary>
+    public interface ITrait : IData {
+
+        public enum TraitType {
+            Other,
+            Action,
+            BonusAction,
+            Advantage,
+            Resistance,
+            Language,
+            Skill,
+            Weapon,
+            Spell
+        }
+
+        public TraitType Type { get; set; }
+
+        public IData TraitData { get; set; }
     }
 
     /// <summary>
@@ -872,7 +1245,23 @@ namespace PlayerEngine.Data {
         /// </summary>
         string Description { get; set; }
     }
+    public interface IProf {
+        /// <summary>
+        /// Does the character have half proficincy
+        /// </summary>
+        public bool HasHalfProficincy { get; set; }
+        /// <summary>
+        /// Does the character have proficincy
+        /// </summary>
+        public bool HasProficincy { get; set; }
+        /// <summary>
+        /// Does the character have double proficincy
+        /// </summary>
+        public bool HasExpertise { get; set; }
+    }
 
     #endregion
+
+    
 
 }
