@@ -19,7 +19,7 @@
     <PublishTrimmed>true</PublishTrimmed>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>publish\1.0.0.1\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -33,8 +33,8 @@
     <ProductName>Tabletop Character Manager</ProductName>
     <PublisherName>Neal Birchfield</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -72,7 +72,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -93,7 +93,10 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -105,10 +108,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -120,6 +120,7 @@
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
       <Private>True</Private>
@@ -127,13 +128,16 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.7.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.7.0.2\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
@@ -245,8 +249,8 @@
     <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Text.Json, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.7.0.2\lib\net462\System.Text.Json.dll</HintPath>
+    <Reference Include="System.Text.Json, Version=7.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.7.0.3\lib\net462\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.RegularExpressions.4.3.1\lib\net463\System.Text.RegularExpressions.dll</HintPath>
@@ -260,7 +264,6 @@
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -268,32 +271,97 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom Elements\BackgroundCustomization.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\BackgroundCustomization.Designer.cs">
+      <DependentUpon>BackgroundCustomization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Character Designer Elements\CustomizeMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Character Designer Elements\CustomizeMenu.Designer.cs">
+      <DependentUpon>CustomizeMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Class Options\Barbarian.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Class Options\Barbarian.Designer.cs">
+      <DependentUpon>Barbarian.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Class Options\Bard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Class Options\Bard.Designer.cs">
+      <DependentUpon>Bard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\DiceView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\DiceView.Designer.cs">
+      <DependentUpon>DiceView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\ActionMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\ActionMenu.Designer.cs">
+      <DependentUpon>ActionMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\SummaryMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\SummaryMenu.Designer.cs">
+      <DependentUpon>SummaryMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Previews\Adopt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Previews\Adopt.Designer.cs">
+      <DependentUpon>Adopt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Previews\Book.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Previews\Book.Designer.cs">
+      <DependentUpon>Book.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Previews\HomebrewBook.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Previews\HomebrewBook.Designer.cs">
+      <DependentUpon>HomebrewBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\WeaponPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\WeaponPreview.Designer.cs">
+      <DependentUpon>WeaponPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Stat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Stat.Designer.cs">
+      <DependentUpon>Stat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Custom Elements\DataDisplay.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Custom Elements\DataDisplay.Designer.cs">
       <DependentUpon>DataDisplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\5eToolsAPI.cs" />
+    <Compile Include="Data\CharacterExporter.cs" />
     <Compile Include="Data\Data.cs" />
+    <Compile Include="Data\GitHubAPI.cs" />
+    <Compile Include="Data\QuestionAPI.cs" />
     <Compile Include="Data\Settings.cs" />
     <Compile Include="Forms\Character Forms\CharacterDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Character Forms\CharacterDesigner.Designer.cs">
       <DependentUpon>CharacterDesigner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Character Forms\ExportProgress.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Character Forms\ExportProgress.Designer.cs">
-      <DependentUpon>ExportProgress.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Homebrew Forms\ExportHomebrew.cs">
       <SubType>Form</SubType>
@@ -331,11 +399,23 @@
     <Compile Include="Forms\Homebrew Forms\HomebrewSpell.Designer.cs">
       <DependentUpon>HomebrewSpell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InstallHomebrew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InstallHomebrew.Designer.cs">
+      <DependentUpon>InstallHomebrew.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Pop Ups\RollDice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Pop Ups\RollDice.Designer.cs">
+      <DependentUpon>RollDice.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Pop Ups\UpdateBox.cs">
       <SubType>Form</SubType>
@@ -369,17 +449,56 @@
     <Compile Include="Forms\Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Custom Elements\BackgroundCustomization.resx">
+      <DependentUpon>BackgroundCustomization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Character Designer Elements\CustomizeMenu.resx">
+      <DependentUpon>CustomizeMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Class Options\Barbarian.resx">
+      <DependentUpon>Barbarian.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Class Options\Bard.resx">
+      <DependentUpon>Bard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\DiceView.resx">
+      <DependentUpon>DiceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Play Engine Elements\ActionMenu.resx">
+      <DependentUpon>ActionMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Play Engine Elements\SummaryMenu.resx">
+      <DependentUpon>SummaryMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Previews\Adopt.resx">
+      <DependentUpon>Adopt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Previews\Book.resx">
+      <DependentUpon>Book.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Previews\HomebrewBook.resx">
+      <DependentUpon>HomebrewBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Play Engine Elements\WeaponPreview.resx">
+      <DependentUpon>WeaponPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Stat.resx">
+      <DependentUpon>Stat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Custom Elements\DataDisplay.resx">
       <DependentUpon>DataDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Character Forms\CharacterDesigner.resx">
       <DependentUpon>CharacterDesigner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Character Forms\ExportProgress.resx">
-      <DependentUpon>ExportProgress.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\InstallHomebrew.resx">
+      <DependentUpon>InstallHomebrew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Pop Ups\RollDice.resx">
+      <DependentUpon>RollDice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pop Ups\UpdateBox.resx">
       <DependentUpon>UpdateBox.cs</DependentUpon>
@@ -395,14 +514,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Forms\Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
     </EmbeddedResource>
@@ -414,13 +528,17 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Resources\Chivo-1og4.ttf" />
-    <EmbeddedResource Include="Resources\PlayerSheet.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -430,8 +548,28 @@
     <Content Include="Resources\info.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Ranged.png" />
+    <None Include="Resources\Melee.png" />
+    <None Include="Resources\CharacterSheet.pptx" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="AxSHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -447,6 +585,24 @@
       <VersionMinor>9</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.PowerPoint">
+      <Guid>{91493440-5A91-11CF-8700-00AA0060263B}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>12</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
@@ -475,14 +631,20 @@
   <ItemGroup>
     <FileAssociation Include=".brew">
       <Visible>False</Visible>
-      <Description>Someone%27s homebrew created using the Tabletop Character Manager</Description>
+      <Description>TTRPG Homebrew</Description>
       <Progid>2</Progid>
       <DefaultIcon>D202.ico</DefaultIcon>
     </FileAssociation>
     <FileAssociation Include=".hro">
       <Visible>False</Visible>
-      <Description>A character created using the Tabletop Character Manager</Description>
+      <Description>TTRPG Character</Description>
       <Progid>1</Progid>
+      <DefaultIcon>D202.ico</DefaultIcon>
+    </FileAssociation>
+    <FileAssociation Include=".sbk">
+      <Visible>False</Visible>
+      <Description>TTRPG Source Book</Description>
+      <Progid>3</Progid>
       <DefaultIcon>D202.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>

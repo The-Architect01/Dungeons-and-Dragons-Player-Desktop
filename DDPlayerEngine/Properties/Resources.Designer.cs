@@ -63,6 +63,16 @@ namespace PlayerEngine.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] CharacterSheet {
+            get {
+                object obj = ResourceManager.GetObject("CharacterSheet", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Chivo_1og4 {
             get {
                 object obj = ResourceManager.GetObject("Chivo_1og4", resourceCulture);
@@ -91,12 +101,22 @@ namespace PlayerEngine.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] PlayerSheet {
+        internal static System.Drawing.Bitmap Melee {
             get {
-                object obj = ResourceManager.GetObject("PlayerSheet", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("Melee", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ranged {
+            get {
+                object obj = ResourceManager.GetObject("Ranged", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
