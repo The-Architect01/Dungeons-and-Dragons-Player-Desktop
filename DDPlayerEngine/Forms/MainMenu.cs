@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Net.Http;
+using System.Text.Json;
 using System.Windows.Forms;
-using System.Speech.Synthesis;
 
+using PlayerEngine.Data;
+using PlayerEngine.Data.APIs;
 using PlayerEngine.Properties;
 
 namespace PlayerEngine.Forms {
@@ -11,22 +16,28 @@ namespace PlayerEngine.Forms {
         /// <summary>
         /// Creates a new Main Menu.
         /// </summary>
-        public MainMenu() { 
+        public MainMenu() {
             InitializeComponent();
+            /*try {
+                using HttpClient client = new();
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.UserAgent.TryParseAdd("request");
 
-            using (SpeechSynthesizer synthesizer = new()) {
-                synthesizer.Speak("This is a test!");
-            }
-
-
+                using HttpResponseMessage response  = client.GetAsync("https://5e.tools/data/races.json").Result;
+                response.EnsureSuccessStatusCode();
+                var responseBody = response.Content.ReadAsStringAsync().Result;
+                LineageData LD = JsonSerializer.Deserialize<LineageData>(responseBody, Engine.JsonSerializerOptions);
+            } catch {
+                Debug.WriteLine("You goofed!");
+            }*/
 
             BackgroundImage = (Image)new ImageConverter().ConvertFrom(Convert.FromBase64String(Data.RuntimeSettings.EngineData.SplashImageBase64));//HiddenLoader.Image;
             foreach (Control c in Controls)
-                c.Font = new Font(Data.RuntimeSettings.DefaultFont, 10, FontStyle.Regular);
-            label2.Font = new Font(Data.RuntimeSettings.DefaultFont, 27, FontStyle.Regular);
-            Version.Font = new Font(Data.RuntimeSettings.DefaultFont, 8, FontStyle.Regular);
-            Version.Text = $"Version {Data.RuntimeSettings.EngineData.Version}";
-            //CharacterComboBox.Font = new Font(Data.RuntimeSettings.DefaultFont, 10, FontStyle.Regular);
+                c.Font = new Font(RuntimeSettings.DefaultFont, 10, FontStyle.Regular);
+            label2.Font = new Font(RuntimeSettings.DefaultFont, 27, FontStyle.Regular);
+            Version.Font = new Font(RuntimeSettings.DefaultFont, 8, FontStyle.Regular);
+            Version.Text = $"Version {RuntimeSettings.EngineData.Version}";
+            menuStrip1.Font = new Font(RuntimeSettings.DefaultFont, 10, FontStyle.Regular);
         }
 
         #region Events
@@ -47,7 +58,7 @@ namespace PlayerEngine.Forms {
         }
 
         private void UpdateToolStripMenuItem_Click(object sender, EventArgs e) {
-            Data.RuntimeSettings.Update();
+            RuntimeSettings.Update();
             //new UpdateBox().Show("Application Updated.", Application.ProductName, MessageBoxButtons.OK);
         }
 
@@ -98,7 +109,15 @@ namespace PlayerEngine.Forms {
         }
 
         private void MainMenu_Activated(object sender, EventArgs e) {
-       
+
+        }
+
+        private void ImportHomebrewToolStripMenuItem_Click(object sender, EventArgs e) {
+            new InstallHomebrew(InstallHomebrew.View.Homebrews).ShowDialog();
+        }
+
+        private void AdoptACharacterToolStripMenuItem_Click(object sender, EventArgs e) {
+            new InstallHomebrew(InstallHomebrew.View.Adoptables).ShowDialog();
         }
     }
 }

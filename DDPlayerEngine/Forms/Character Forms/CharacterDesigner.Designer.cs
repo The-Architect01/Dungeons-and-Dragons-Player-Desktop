@@ -1,4 +1,11 @@
 ﻿
+using PlayerEngine.Custom_Elements;
+using PlayerEngine.Data;
+using System.Drawing;
+using System.Windows.Forms;
+using System;
+using PlayerEngine.Properties;
+
 namespace PlayerEngine.Forms {
     partial class CharacterDesigner {
         /// <summary>
@@ -25,43 +32,56 @@ namespace PlayerEngine.Forms {
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CharacterDesigner));
-            this.LineagePreview = new System.Windows.Forms.PictureBox();
             this.LineageOptions = new System.Windows.Forms.ComboBox();
             this.LineageTitle = new System.Windows.Forms.Label();
             this.LineageTab = new System.Windows.Forms.Panel();
             this.ClassTab = new System.Windows.Forms.Panel();
             this.BackgroundTab = new System.Windows.Forms.Panel();
             this.CustomizeTab = new System.Windows.Forms.Panel();
+            this.CustomPreview = new System.Windows.Forms.Panel();
+            this.ClickMe = new System.Windows.Forms.Label();
+            this.CustomSource = new System.Windows.Forms.Label();
             this.NextCs = new System.Windows.Forms.Button();
             this.BackCs = new System.Windows.Forms.Button();
             this.CustomizeDataHost = new System.Windows.Forms.Panel();
             this.InfoDataCustom = new System.Windows.Forms.Label();
             this.CustomizeOptions = new System.Windows.Forms.ComboBox();
             this.CustomizeTitle = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.StatsCustomize = new System.Windows.Forms.Label();
             this.InfoCustom = new System.Windows.Forms.Label();
+            this.BackgroundPreview = new System.Windows.Forms.Panel();
+            this.BackgroundSource = new System.Windows.Forms.Label();
             this.NextB = new System.Windows.Forms.Button();
             this.BackB = new System.Windows.Forms.Button();
             this.BackgroundDataHost = new System.Windows.Forms.Panel();
             this.InfoDataB = new System.Windows.Forms.Label();
             this.BackgroundOptions = new System.Windows.Forms.ComboBox();
             this.BackgroundTitle = new System.Windows.Forms.Label();
-            this.BackgroundPreview = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.StatsB = new System.Windows.Forms.Label();
             this.InfoB = new System.Windows.Forms.Label();
+            this.ClassPreview = new System.Windows.Forms.Panel();
+            this.ClassSource = new System.Windows.Forms.Label();
+            this.AddClass = new System.Windows.Forms.Button();
+            this.AdditionalClass = new System.Windows.Forms.Panel();
+            this.RemoveClass = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Class2Options = new System.Windows.Forms.ComboBox();
+            this.LevelClass2 = new System.Windows.Forms.ComboBox();
+            this.LevelClass1Label = new System.Windows.Forms.Label();
+            this.LevelClass1 = new System.Windows.Forms.ComboBox();
             this.NextC = new System.Windows.Forms.Button();
             this.BackC = new System.Windows.Forms.Button();
             this.ClassDataHost = new System.Windows.Forms.Panel();
             this.InfoDataC = new System.Windows.Forms.Label();
             this.ClassOptions = new System.Windows.Forms.ComboBox();
             this.ClassTitle = new System.Windows.Forms.Label();
-            this.ClassPreview = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.StatsC = new System.Windows.Forms.Label();
             this.InfoC = new System.Windows.Forms.Label();
+            this.LineagePreview = new System.Windows.Forms.Panel();
+            this.LineageSource = new System.Windows.Forms.Label();
             this.NextL = new System.Windows.Forms.Button();
             this.BackL = new System.Windows.Forms.Button();
             this.LineageDataHost = new System.Windows.Forms.Panel();
@@ -71,36 +91,25 @@ namespace PlayerEngine.Forms {
             this.InfoL = new System.Windows.Forms.Label();
             this.Animator = new System.Timers.Timer();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            ((System.ComponentModel.ISupportInitialize)(this.LineagePreview)).BeginInit();
             this.LineageTab.SuspendLayout();
             this.ClassTab.SuspendLayout();
             this.BackgroundTab.SuspendLayout();
             this.CustomizeTab.SuspendLayout();
+            this.CustomPreview.SuspendLayout();
             this.CustomizeDataHost.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
+            this.BackgroundPreview.SuspendLayout();
             this.BackgroundDataHost.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BackgroundPreview)).BeginInit();
             this.panel4.SuspendLayout();
+            this.ClassPreview.SuspendLayout();
+            this.AdditionalClass.SuspendLayout();
             this.ClassDataHost.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ClassPreview)).BeginInit();
             this.panel3.SuspendLayout();
+            this.LineagePreview.SuspendLayout();
             this.LineageDataHost.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Animator)).BeginInit();
             this.SuspendLayout();
-            // 
-            // LineagePreview
-            // 
-            this.LineagePreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.LineagePreview.ImageLocation = "https://www.dndbeyond.com/avatars/thumbnails/7743/443/340/340/637093220265349425." +
-    "png";
-            this.LineagePreview.Location = new System.Drawing.Point(418, 162);
-            this.LineagePreview.Name = "LineagePreview";
-            this.LineagePreview.Size = new System.Drawing.Size(350, 350);
-            this.LineagePreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LineagePreview.TabIndex = 0;
-            this.LineagePreview.TabStop = false;
             // 
             // LineageOptions
             // 
@@ -119,7 +128,7 @@ namespace PlayerEngine.Forms {
             this.LineageOptions.Size = new System.Drawing.Size(350, 21);
             this.LineageOptions.TabIndex = 1;
             this.LineageOptions.Text = "Choose One";
-            this.LineageOptions.SelectedIndexChanged += new System.EventHandler(this.RaceOptions_SelectedIndexChanged);
+            this.LineageOptions.SelectedIndexChanged += new System.EventHandler(this.LineageOptions_SelectedIndexChanged);
             // 
             // LineageTitle
             // 
@@ -133,15 +142,14 @@ namespace PlayerEngine.Forms {
             // LineageTab
             // 
             this.LineageTab.Controls.Add(this.ClassTab);
+            this.LineageTab.Controls.Add(this.LineagePreview);
             this.LineageTab.Controls.Add(this.NextL);
             this.LineageTab.Controls.Add(this.BackL);
             this.LineageTab.Controls.Add(this.LineageDataHost);
             this.LineageTab.Controls.Add(this.LineageOptions);
             this.LineageTab.Controls.Add(this.LineageTitle);
-            this.LineageTab.Controls.Add(this.LineagePreview);
             this.LineageTab.Controls.Add(this.panel1);
-            this.LineageTab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LineageTab.Location = new System.Drawing.Point(0, 0);
+            this.LineageTab.Location = new System.Drawing.Point(0, 1);
             this.LineageTab.Name = "LineageTab";
             this.LineageTab.Size = new System.Drawing.Size(767, 511);
             this.LineageTab.TabIndex = 3;
@@ -149,12 +157,16 @@ namespace PlayerEngine.Forms {
             // ClassTab
             // 
             this.ClassTab.Controls.Add(this.BackgroundTab);
+            this.ClassTab.Controls.Add(this.ClassPreview);
+            this.ClassTab.Controls.Add(this.AddClass);
+            this.ClassTab.Controls.Add(this.AdditionalClass);
+            this.ClassTab.Controls.Add(this.LevelClass1Label);
+            this.ClassTab.Controls.Add(this.LevelClass1);
             this.ClassTab.Controls.Add(this.NextC);
             this.ClassTab.Controls.Add(this.BackC);
             this.ClassTab.Controls.Add(this.ClassDataHost);
             this.ClassTab.Controls.Add(this.ClassOptions);
             this.ClassTab.Controls.Add(this.ClassTitle);
-            this.ClassTab.Controls.Add(this.ClassPreview);
             this.ClassTab.Controls.Add(this.panel3);
             this.ClassTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ClassTab.Location = new System.Drawing.Point(0, 0);
@@ -166,12 +178,12 @@ namespace PlayerEngine.Forms {
             // BackgroundTab
             // 
             this.BackgroundTab.Controls.Add(this.CustomizeTab);
+            this.BackgroundTab.Controls.Add(this.BackgroundPreview);
             this.BackgroundTab.Controls.Add(this.NextB);
             this.BackgroundTab.Controls.Add(this.BackB);
             this.BackgroundTab.Controls.Add(this.BackgroundDataHost);
             this.BackgroundTab.Controls.Add(this.BackgroundOptions);
             this.BackgroundTab.Controls.Add(this.BackgroundTitle);
-            this.BackgroundTab.Controls.Add(this.BackgroundPreview);
             this.BackgroundTab.Controls.Add(this.panel4);
             this.BackgroundTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BackgroundTab.Location = new System.Drawing.Point(0, 0);
@@ -182,24 +194,57 @@ namespace PlayerEngine.Forms {
             // 
             // CustomizeTab
             // 
+            this.CustomizeTab.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(96)))), ((int)(((byte)(136)))));
+            this.CustomizeTab.Controls.Add(this.CustomPreview);
             this.CustomizeTab.Controls.Add(this.NextCs);
             this.CustomizeTab.Controls.Add(this.BackCs);
             this.CustomizeTab.Controls.Add(this.CustomizeDataHost);
             this.CustomizeTab.Controls.Add(this.CustomizeOptions);
             this.CustomizeTab.Controls.Add(this.CustomizeTitle);
-            this.CustomizeTab.Controls.Add(this.pictureBox1);
             this.CustomizeTab.Controls.Add(this.panel5);
             this.CustomizeTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CustomizeTab.Location = new System.Drawing.Point(0, 0);
             this.CustomizeTab.Name = "CustomizeTab";
             this.CustomizeTab.Size = new System.Drawing.Size(767, 511);
-            this.CustomizeTab.TabIndex = 10;
+            this.CustomizeTab.TabIndex = 14;
             this.CustomizeTab.Visible = false;
+            // 
+            // CustomPreview
+            // 
+            this.CustomPreview.BackColor = System.Drawing.Color.White;
+            this.CustomPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CustomPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CustomPreview.Controls.Add(this.ClickMe);
+            this.CustomPreview.Controls.Add(this.CustomSource);
+            this.CustomPreview.Location = new System.Drawing.Point(418, 161);
+            this.CustomPreview.Name = "CustomPreview";
+            this.CustomPreview.Size = new System.Drawing.Size(350, 350);
+            this.CustomPreview.TabIndex = 12;
+            this.CustomPreview.Click += new System.EventHandler(this.CustomPreview_Click);
+            // 
+            // ClickMe
+            // 
+            this.ClickMe.BackColor = System.Drawing.Color.White;
+            this.ClickMe.Location = new System.Drawing.Point(0, 169);
+            this.ClickMe.Name = "ClickMe";
+            this.ClickMe.Size = new System.Drawing.Size(350, 25);
+            this.ClickMe.TabIndex = 12;
+            this.ClickMe.Text = "Add Image";
+            this.ClickMe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ClickMe.Click += new System.EventHandler(this.ClickMe_Click);
+            // 
+            // CustomSource
+            // 
+            this.CustomSource.AutoSize = true;
+            this.CustomSource.BackColor = System.Drawing.Color.Transparent;
+            this.CustomSource.Location = new System.Drawing.Point(3, 330);
+            this.CustomSource.Name = "CustomSource";
+            this.CustomSource.Size = new System.Drawing.Size(0, 13);
+            this.CustomSource.TabIndex = 11;
             // 
             // NextCs
             // 
             this.NextCs.BackColor = System.Drawing.Color.Transparent;
-            this.NextCs.Enabled = false;
             this.NextCs.Location = new System.Drawing.Point(659, 20);
             this.NextCs.Name = "NextCs";
             this.NextCs.Size = new System.Drawing.Size(96, 33);
@@ -220,6 +265,7 @@ namespace PlayerEngine.Forms {
             // 
             // CustomizeDataHost
             // 
+            this.CustomizeDataHost.AutoScroll = true;
             this.CustomizeDataHost.BackColor = System.Drawing.SystemColors.Menu;
             this.CustomizeDataHost.Controls.Add(this.InfoDataCustom);
             this.CustomizeDataHost.Location = new System.Drawing.Point(18, 172);
@@ -244,12 +290,14 @@ namespace PlayerEngine.Forms {
             this.CustomizeOptions.Items.AddRange(new object[] {
             "Lineage",
             "Class",
-            "Background"});
+            "Background",
+            "Stats"});
             this.CustomizeOptions.Location = new System.Drawing.Point(18, 82);
             this.CustomizeOptions.Name = "CustomizeOptions";
             this.CustomizeOptions.Size = new System.Drawing.Size(350, 21);
             this.CustomizeOptions.TabIndex = 1;
             this.CustomizeOptions.Text = "Choose One";
+            this.CustomizeOptions.SelectedIndexChanged += new System.EventHandler(this.CustomizeOptions_SelectedIndexChanged);
             // 
             // CustomizeTitle
             // 
@@ -259,17 +307,6 @@ namespace PlayerEngine.Forms {
             this.CustomizeTitle.Size = new System.Drawing.Size(55, 13);
             this.CustomizeTitle.TabIndex = 2;
             this.CustomizeTitle.Text = "Customize";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(418, 162);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(350, 350);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // panel5
             // 
@@ -311,6 +348,28 @@ namespace PlayerEngine.Forms {
             this.InfoCustom.Text = "Info";
             this.InfoCustom.Click += new System.EventHandler(this.InfoCustom_Click);
             // 
+            // BackgroundPreview
+            // 
+            this.BackgroundPreview.BackColor = System.Drawing.Color.Transparent;
+            this.BackgroundPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BackgroundPreview.Controls.Add(this.BackgroundSource);
+            this.BackgroundPreview.Location = new System.Drawing.Point(416, 159);
+            this.BackgroundPreview.Name = "BackgroundPreview";
+            this.BackgroundPreview.Size = new System.Drawing.Size(350, 350);
+            this.BackgroundPreview.TabIndex = 13;
+            // 
+            // BackgroundSource
+            // 
+            this.BackgroundSource.AutoSize = true;
+            this.BackgroundSource.BackColor = System.Drawing.Color.Transparent;
+            this.BackgroundSource.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.BackgroundSource.Location = new System.Drawing.Point(4, 332);
+            this.BackgroundSource.Name = "BackgroundSource";
+            this.BackgroundSource.Size = new System.Drawing.Size(145, 13);
+            this.BackgroundSource.TabIndex = 12;
+            this.BackgroundSource.Text = "Source: Wizards of the Coast";
+            this.BackgroundSource.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // NextB
             // 
             this.NextB.BackColor = System.Drawing.Color.Transparent;
@@ -335,6 +394,7 @@ namespace PlayerEngine.Forms {
             // 
             // BackgroundDataHost
             // 
+            this.BackgroundDataHost.AutoScroll = true;
             this.BackgroundDataHost.BackColor = System.Drawing.SystemColors.Menu;
             this.BackgroundDataHost.Controls.Add(this.InfoDataB);
             this.BackgroundDataHost.Location = new System.Drawing.Point(18, 172);
@@ -379,17 +439,6 @@ namespace PlayerEngine.Forms {
             this.BackgroundTitle.TabIndex = 2;
             this.BackgroundTitle.Text = "Backgrounds";
             // 
-            // BackgroundPreview
-            // 
-            this.BackgroundPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.BackgroundPreview.ImageLocation = "";
-            this.BackgroundPreview.Location = new System.Drawing.Point(418, 162);
-            this.BackgroundPreview.Name = "BackgroundPreview";
-            this.BackgroundPreview.Size = new System.Drawing.Size(350, 350);
-            this.BackgroundPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.BackgroundPreview.TabIndex = 0;
-            this.BackgroundPreview.TabStop = false;
-            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.Control;
@@ -430,6 +479,164 @@ namespace PlayerEngine.Forms {
             this.InfoB.Text = "Info";
             this.InfoB.Click += new System.EventHandler(this.InfoB_Click);
             // 
+            // ClassPreview
+            // 
+            this.ClassPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ClassPreview.Controls.Add(this.ClassSource);
+            this.ClassPreview.Location = new System.Drawing.Point(417, 161);
+            this.ClassPreview.Name = "ClassPreview";
+            this.ClassPreview.Size = new System.Drawing.Size(350, 350);
+            this.ClassPreview.TabIndex = 16;
+            // 
+            // ClassSource
+            // 
+            this.ClassSource.AutoSize = true;
+            this.ClassSource.BackColor = System.Drawing.Color.Transparent;
+            this.ClassSource.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.ClassSource.Location = new System.Drawing.Point(3, 327);
+            this.ClassSource.Name = "ClassSource";
+            this.ClassSource.Size = new System.Drawing.Size(145, 13);
+            this.ClassSource.TabIndex = 11;
+            this.ClassSource.Text = "Source: Wizards of the Coast";
+            // 
+            // AddClass
+            // 
+            this.AddClass.AutoSize = true;
+            this.AddClass.Location = new System.Drawing.Point(391, 80);
+            this.AddClass.Name = "AddClass";
+            this.AddClass.Size = new System.Drawing.Size(75, 23);
+            this.AddClass.TabIndex = 15;
+            this.AddClass.Text = "Add Class";
+            this.AddClass.UseVisualStyleBackColor = true;
+            this.AddClass.Visible = false;
+            this.AddClass.Click += new System.EventHandler(this.AddClass_Click);
+            // 
+            // AdditionalClass
+            // 
+            this.AdditionalClass.Controls.Add(this.RemoveClass);
+            this.AdditionalClass.Controls.Add(this.label1);
+            this.AdditionalClass.Controls.Add(this.Class2Options);
+            this.AdditionalClass.Controls.Add(this.LevelClass2);
+            this.AdditionalClass.Location = new System.Drawing.Point(391, 63);
+            this.AdditionalClass.Name = "AdditionalClass";
+            this.AdditionalClass.Size = new System.Drawing.Size(376, 81);
+            this.AdditionalClass.TabIndex = 14;
+            this.AdditionalClass.Visible = false;
+            // 
+            // RemoveClass
+            // 
+            this.RemoveClass.AutoSize = true;
+            this.RemoveClass.Location = new System.Drawing.Point(4, 49);
+            this.RemoveClass.Name = "RemoveClass";
+            this.RemoveClass.Size = new System.Drawing.Size(85, 23);
+            this.RemoveClass.TabIndex = 16;
+            this.RemoveClass.Text = "Remove Class";
+            this.RemoveClass.UseVisualStyleBackColor = true;
+            this.RemoveClass.Click += new System.EventHandler(this.RemoveClass_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(224, 54);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Level:";
+            // 
+            // Class2Options
+            // 
+            this.Class2Options.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.Class2Options.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.Class2Options.FormattingEnabled = true;
+            this.Class2Options.Items.AddRange(new object[] {
+            "Cleric",
+            "Rogue",
+            "Huge",
+            "Testing",
+            "Sample",
+            "SuperLong"});
+            this.Class2Options.Location = new System.Drawing.Point(4, 19);
+            this.Class2Options.Name = "Class2Options";
+            this.Class2Options.Size = new System.Drawing.Size(350, 21);
+            this.Class2Options.TabIndex = 16;
+            this.Class2Options.Text = "Choose One";
+            this.Class2Options.SelectedIndexChanged += new System.EventHandler(this.Class2Options_SelectedIndexChanged);
+            // 
+            // LevelClass2
+            // 
+            this.LevelClass2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.LevelClass2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.LevelClass2.FormattingEnabled = true;
+            this.LevelClass2.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19"});
+            this.LevelClass2.Location = new System.Drawing.Point(277, 51);
+            this.LevelClass2.Name = "LevelClass2";
+            this.LevelClass2.Size = new System.Drawing.Size(77, 21);
+            this.LevelClass2.TabIndex = 17;
+            this.LevelClass2.Text = "1";
+            this.LevelClass2.SelectedIndexChanged += new System.EventHandler(this.LevelClass2_SelectedIndexChanged);
+            // 
+            // LevelClass1Label
+            // 
+            this.LevelClass1Label.AutoSize = true;
+            this.LevelClass1Label.Location = new System.Drawing.Point(238, 117);
+            this.LevelClass1Label.Name = "LevelClass1Label";
+            this.LevelClass1Label.Size = new System.Drawing.Size(36, 13);
+            this.LevelClass1Label.TabIndex = 13;
+            this.LevelClass1Label.Text = "Level:";
+            // 
+            // LevelClass1
+            // 
+            this.LevelClass1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.LevelClass1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.LevelClass1.Enabled = false;
+            this.LevelClass1.FormattingEnabled = true;
+            this.LevelClass1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"});
+            this.LevelClass1.Location = new System.Drawing.Point(291, 114);
+            this.LevelClass1.Name = "LevelClass1";
+            this.LevelClass1.Size = new System.Drawing.Size(77, 21);
+            this.LevelClass1.TabIndex = 12;
+            this.LevelClass1.Text = "1";
+            this.LevelClass1.SelectedIndexChanged += new System.EventHandler(this.LevelClass1_SelectedIndexChanged);
+            // 
             // NextC
             // 
             this.NextC.BackColor = System.Drawing.Color.Transparent;
@@ -454,6 +661,7 @@ namespace PlayerEngine.Forms {
             // 
             // ClassDataHost
             // 
+            this.ClassDataHost.AutoScroll = true;
             this.ClassDataHost.BackColor = System.Drawing.SystemColors.Menu;
             this.ClassDataHost.Controls.Add(this.InfoDataC);
             this.ClassDataHost.Location = new System.Drawing.Point(18, 172);
@@ -498,18 +706,6 @@ namespace PlayerEngine.Forms {
             this.ClassTitle.TabIndex = 2;
             this.ClassTitle.Text = "Classes";
             // 
-            // ClassPreview
-            // 
-            this.ClassPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClassPreview.ImageLocation = "https://www.dndbeyond.com/avatars/thumbnails/8551/970/340/340/637158853104763253." +
-    "png";
-            this.ClassPreview.Location = new System.Drawing.Point(418, 162);
-            this.ClassPreview.Name = "ClassPreview";
-            this.ClassPreview.Size = new System.Drawing.Size(350, 350);
-            this.ClassPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ClassPreview.TabIndex = 0;
-            this.ClassPreview.TabStop = false;
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.Control;
@@ -550,6 +746,26 @@ namespace PlayerEngine.Forms {
             this.InfoC.Text = "Info";
             this.InfoC.Click += new System.EventHandler(this.InfoC_Click);
             // 
+            // LineagePreview
+            // 
+            this.LineagePreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.LineagePreview.Controls.Add(this.LineageSource);
+            this.LineagePreview.Location = new System.Drawing.Point(417, 161);
+            this.LineagePreview.Name = "LineagePreview";
+            this.LineagePreview.Size = new System.Drawing.Size(350, 350);
+            this.LineagePreview.TabIndex = 11;
+            // 
+            // LineageSource
+            // 
+            this.LineageSource.AutoSize = true;
+            this.LineageSource.BackColor = System.Drawing.Color.Transparent;
+            this.LineageSource.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.LineageSource.Location = new System.Drawing.Point(2, 327);
+            this.LineageSource.Name = "LineageSource";
+            this.LineageSource.Size = new System.Drawing.Size(145, 13);
+            this.LineageSource.TabIndex = 10;
+            this.LineageSource.Text = "Source: Wizards of the Coast";
+            // 
             // NextL
             // 
             this.NextL.BackColor = System.Drawing.Color.Transparent;
@@ -560,7 +776,7 @@ namespace PlayerEngine.Forms {
             this.NextL.TabIndex = 7;
             this.NextL.Text = "Next";
             this.NextL.UseVisualStyleBackColor = false;
-            this.NextL.Click += new System.EventHandler(this.NextR_Click);
+            this.NextL.Click += new System.EventHandler(this.NextL_Click);
             // 
             // BackL
             // 
@@ -570,7 +786,7 @@ namespace PlayerEngine.Forms {
             this.BackL.TabIndex = 6;
             this.BackL.Text = "Back";
             this.BackL.UseVisualStyleBackColor = true;
-            this.BackL.Click += new System.EventHandler(this.BackR_Click);
+            this.BackL.Click += new System.EventHandler(this.BackL_Click);
             // 
             // LineageDataHost
             // 
@@ -637,7 +853,7 @@ namespace PlayerEngine.Forms {
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Image Files|*.gif;*.jpg;*.jpeg;*.bmp;*.png";
             // 
             // CharacterDesigner
             // 
@@ -654,7 +870,6 @@ namespace PlayerEngine.Forms {
             this.Text = "Character Designer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CharacterDesigner_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CharacterDesigner_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.LineagePreview)).EndInit();
             this.LineageTab.ResumeLayout(false);
             this.LineageTab.PerformLayout();
             this.ClassTab.ResumeLayout(false);
@@ -663,18 +878,25 @@ namespace PlayerEngine.Forms {
             this.BackgroundTab.PerformLayout();
             this.CustomizeTab.ResumeLayout(false);
             this.CustomizeTab.PerformLayout();
+            this.CustomPreview.ResumeLayout(false);
+            this.CustomPreview.PerformLayout();
             this.CustomizeDataHost.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.BackgroundPreview.ResumeLayout(false);
+            this.BackgroundPreview.PerformLayout();
             this.BackgroundDataHost.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.BackgroundPreview)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.ClassPreview.ResumeLayout(false);
+            this.ClassPreview.PerformLayout();
+            this.AdditionalClass.ResumeLayout(false);
+            this.AdditionalClass.PerformLayout();
             this.ClassDataHost.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ClassPreview)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.LineagePreview.ResumeLayout(false);
+            this.LineagePreview.PerformLayout();
             this.LineageDataHost.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -684,8 +906,6 @@ namespace PlayerEngine.Forms {
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox LineagePreview;
         private System.Windows.Forms.ComboBox LineageOptions;
         private System.Windows.Forms.Label LineageTitle;
         private System.Windows.Forms.Panel LineageTab;
@@ -700,36 +920,50 @@ namespace PlayerEngine.Forms {
         private System.Windows.Forms.Panel ClassDataHost;
         private System.Windows.Forms.ComboBox ClassOptions;
         private System.Windows.Forms.Label ClassTitle;
-        private System.Windows.Forms.PictureBox ClassPreview;
         private System.Windows.Forms.Panel BackgroundTab;
         private System.Windows.Forms.Button NextB;
         private System.Windows.Forms.Button BackB;
         private System.Windows.Forms.Panel BackgroundDataHost;
         private System.Windows.Forms.ComboBox BackgroundOptions;
         private System.Windows.Forms.Label BackgroundTitle;
-        private System.Windows.Forms.PictureBox BackgroundPreview;
-        private System.Windows.Forms.Panel CustomizeTab;
-        private System.Windows.Forms.Button NextCs;
-        private System.Windows.Forms.Button BackCs;
-        private System.Windows.Forms.Panel CustomizeDataHost;
-        private System.Windows.Forms.ComboBox CustomizeOptions;
-        private System.Windows.Forms.Label CustomizeTitle;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label TraitsL;
         private System.Windows.Forms.Label InfoDataL;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Label StatsCustomize;
-        private System.Windows.Forms.Label InfoCustom;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label StatsB;
         private System.Windows.Forms.Label InfoB;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label StatsC;
         private System.Windows.Forms.Label InfoC;
-        private System.Windows.Forms.Label InfoDataCustom;
         private System.Windows.Forms.Label InfoDataB;
         private System.Windows.Forms.Label InfoDataC;
+        private System.Windows.Forms.Label LineageSource;
+        private System.Windows.Forms.Label BackgroundSource;
+        private System.Windows.Forms.Label ClassSource;
+        private System.Windows.Forms.Label LevelClass1Label;
+        private System.Windows.Forms.ComboBox LevelClass1;
+        private System.Windows.Forms.Button AddClass;
+        private System.Windows.Forms.Panel AdditionalClass;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox Class2Options;
+        private System.Windows.Forms.ComboBox LevelClass2;
+        private System.Windows.Forms.Button RemoveClass;
+        private System.Windows.Forms.Panel BackgroundPreview;
+        private System.Windows.Forms.Panel ClassPreview;
+        private System.Windows.Forms.Panel LineagePreview;
+        private Panel CustomizeTab;
+        private Panel CustomPreview;
+        private Label ClickMe;
+        private Label CustomSource;
+        private Button NextCs;
+        private Button BackCs;
+        public Panel CustomizeDataHost;
+        private Label InfoDataCustom;
+        private ComboBox CustomizeOptions;
+        private Label CustomizeTitle;
+        private Panel panel5;
+        private Label StatsCustomize;
+        private Label InfoCustom;
     }
 }

@@ -1,6 +1,6 @@
 ﻿
-namespace PlayerEngine.Forms {
-    partial class ExportProgress {
+namespace PlayerEngine.Custom_Elements {
+    partial class SpellList {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -24,29 +24,12 @@ namespace PlayerEngine.Forms {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.ExportLocation = new System.Windows.Forms.SaveFileDialog();
-            this.SuspendLayout();
-            // 
-            // ExportLocation
-            // 
-            this.ExportLocation.CheckFileExists = true;
-            this.ExportLocation.DefaultExt = "pdf";
-            this.ExportLocation.Filter = "PDFs|*.pdf";
-            this.ExportLocation.InitialDirectory = "Desktop";
-            // 
-            // ExportProgress
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "ExportProgress";
-            this.Text = "ExportProgress";
-            this.ResumeLayout(false);
-
+            this.Text = "SpellList";
         }
 
         #endregion
-
-        private System.Windows.Forms.SaveFileDialog ExportLocation;
     }
 }

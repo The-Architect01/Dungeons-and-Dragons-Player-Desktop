@@ -28,6 +28,7 @@ namespace PlayerEngine.Forms {
             this.panel1 = new System.Windows.Forms.Panel();
             this.Rulesets = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.InstallHomebrew = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,18 +55,29 @@ namespace PlayerEngine.Forms {
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Chivo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(14, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 19);
             this.label1.TabIndex = 1;
             this.label1.Text = "Enable Rulesets";
             // 
+            // InstallHomebrew
+            // 
+            this.InstallHomebrew.Location = new System.Drawing.Point(203, 14);
+            this.InstallHomebrew.Name = "InstallHomebrew";
+            this.InstallHomebrew.Size = new System.Drawing.Size(116, 23);
+            this.InstallHomebrew.TabIndex = 2;
+            this.InstallHomebrew.Text = "Get Books";
+            this.InstallHomebrew.UseVisualStyleBackColor = true;
+            this.InstallHomebrew.Click += new System.EventHandler(this.InstallHomebrew_Click);
+            // 
             // SettingsMenu
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(149)))), ((int)(((byte)(149)))));
             this.ClientSize = new System.Drawing.Size(337, 311);
+            this.Controls.Add(this.InstallHomebrew);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -89,5 +101,6 @@ namespace PlayerEngine.Forms {
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel Rulesets;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button InstallHomebrew;
     }
 }

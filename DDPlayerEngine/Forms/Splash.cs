@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
+
+using PlayerEngine.Data;
 
 namespace PlayerEngine.Forms {
     public partial class Splash : Form {
@@ -11,7 +14,14 @@ namespace PlayerEngine.Forms {
         /// </summary>
         public Splash() {
             InitializeComponent();
-            HiddenLoader.Image = Image.FromStream(new MemoryStream(Convert.FromBase64String(Data.RuntimeSettings.EngineData.SplashImageBase64)));
+            if (Engine.IsOnline) {
+                HiddenLoader.Load(RuntimeSettings.EngineData.SplashImageURL);
+                WebClient wc = new();
+                RuntimeSettings.EngineData.SplashImageBase64 = Convert.ToBase64String(wc.DownloadData(RuntimeSettings.EngineData.SplashImageURL));
+                File.WriteAllText(Engine.SaveFileLocation + "EngineData", System.Text.Json.JsonSerializer.Serialize(RuntimeSettings.EngineData));
+            } else {
+                HiddenLoader.Image = Image.FromStream(new MemoryStream(Convert.FromBase64String(RuntimeSettings.EngineData.SplashImageBase64)));
+            }
             BackgroundImage = HiddenLoader.Image;
             HiddenLoader.Hide();
             label2.Font = new Font(Data.RuntimeSettings.DefaultFont, 27, FontStyle.Regular);

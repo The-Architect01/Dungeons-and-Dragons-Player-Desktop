@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+*.pptx
+/DDPlayerEngine/Data/CharacterExporter.cs
+/DDPlayerEngine/Resources
+/DDPlayerEngine/Cipher.cs
