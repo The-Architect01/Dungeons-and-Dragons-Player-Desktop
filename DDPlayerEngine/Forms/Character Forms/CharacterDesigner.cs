@@ -1,7 +1,5 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -10,8 +8,6 @@ using System.Threading;
 using System.Windows.Forms;
 
 using PlayerEngine.Custom_Elements;
-using PlayerEngine.Custom_Elements.Character_Designer_Elements;
-using PlayerEngine.Custom_Elements.Class_Options;
 using PlayerEngine.Data;
 using PlayerEngine.Properties;
 
@@ -25,7 +21,9 @@ namespace PlayerEngine.Forms {
         public Character PC;
         bool MadeCharacter = false;
 
-        CustomizeMenu CharacterCustomizationMenu;
+        static readonly string StatText = "Your character's identity is an important part of any adventure! In this section, we will be assigning values for six categories and naming your character. The six categories have been mentioned in other sections; are STR (Strength), DEX (Dextrarity), CON (Constitution), WIS (Wisdom), INT (Intelligence), and CHA (Charisma). These six numbers determine how well your character tends to do with tasks associated with them. For instance, a character with a high STR and a low CHA - might be good at lifting heavy things, but not be good at communicating ideas.";
+
+        //CustomizeMenu CharacterCustomizationMenu;
 
         /// <summary>
         /// Create a new form
@@ -37,8 +35,15 @@ namespace PlayerEngine.Forms {
             ClassTab_Load();
             BackgroundTab_Load();
 
-            CharacterCustomizationMenu = new CustomizeMenu();
+            //CharacterCustomizationMenu = new CustomizeMenu();
+            foreach(Control c in Controls)
+                c.Font = new Font(RuntimeSettings.DefaultFont, 12, FontStyle.Regular);
 
+            CustomizeTitle.Font = new Font(RuntimeSettings.DefaultFont, 27, FontStyle.Bold);
+            CustomizeDataHost.Controls.Add(new DataDisplay() { Dock = DockStyle.Fill, Name = "OptionsL", DisplaySetting = DisplaySetting.Lineage });
+            CustomizeDataHost.Controls.Add(new DataDisplay() { Dock = DockStyle.Fill, Name = "OptionsC", DisplaySetting = DisplaySetting.Class });
+            CustomizeDataHost.Controls.Add(new DataDisplay() { Dock = DockStyle.Fill, Name = "OptionsB", DisplaySetting = DisplaySetting.Background });
+            CustomizeDataHost.Controls.Add(new Label() { Dock = DockStyle.Fill, Name = "StatLabel", Text = "" });
             PC = new Character();
 
         }
@@ -48,9 +53,9 @@ namespace PlayerEngine.Forms {
             if(!MadeCharacter) Program.MM.Show();
         }
         private void CharacterDesigner_FormClosing(object sender, FormClosingEventArgs e) {
-            if (MadeCharacter) {
-                //if (new UpdateBox().Show("Are you sure you want to go back to the Main Menu?\nYour character will be deleted.", Application.ProductName, MessageBoxButtons.YesNo) == DialogResult.No)
-                //    e.Cancel = true;
+            if (!MadeCharacter) {
+                if (MessageBox.Show("Are you sure you want to go back to the Main Menu?\nYour character will be deleted.", Application.ProductName, MessageBoxButtons.YesNo) == DialogResult.No)
+                    e.Cancel = true;
             }
         }
 
@@ -71,10 +76,9 @@ namespace PlayerEngine.Forms {
             BackgroundTitle.Font = new Font(RuntimeSettings.DefaultFont, 27, FontStyle.Bold);
             BackgroundDataHost.Controls.Add(new DataDisplay() { Dock = DockStyle.Fill, Name = "DescriptionB", DisplaySetting = DisplaySetting.Background });
 
-            
-
             BackgroundPreview.BackgroundImage = (Image)new ImageConverter().ConvertFrom(Convert.FromBase64String(Settings.Default.BackgroundsImage));
             BackgroundPreview.BackgroundImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
+
         }
 
         private void LineageTab_Load() {
@@ -122,12 +126,10 @@ namespace PlayerEngine.Forms {
 
         private void NextL_Click(object sender, EventArgs e) {
             ClassTab.Visible = true;
-            Type ControlToAddClass1 = Assembly.GetExecutingAssembly().GetType($"PlayerEngine.Custom_Elements.Class_Options.BloodHunter");
+            //Type ControlToAddClass1 = Assembly.GetExecutingAssembly().GetType($"PlayerEngine.Custom_Elements.Class_Options.{PC.Class[0].BaseClass.Replace(" ", "")}");
 
-            Panel CustomizeDataHost = CharacterCustomizationMenu.CustomizeDataHost;
-
-            if (!CustomizeDataHost.Controls.ContainsTypes(ControlToAddClass1)) {
-                CustomizeDataHost.Controls.Add(Activator.CreateInstance(ControlToAddClass1) as UserControl);
+            if (!CustomizeDataHost.Controls.ContainsTypes(typeof(Panel))) {
+                CustomizeDataHost.Controls.Add(Activator.CreateInstance(typeof(Panel)) as UserControl);
                 CustomizeDataHost.Controls[CustomizeDataHost.Controls.Count - 1].Dock = DockStyle.Top;
                 CustomizeDataHost.Controls[CustomizeDataHost.Controls.Count - 1].Visible = false;
             }
@@ -143,8 +145,6 @@ namespace PlayerEngine.Forms {
             BackgroundTab.Visible = true;
 
             Type ControlToAddClass1 = Assembly.GetExecutingAssembly().GetType($"PlayerEngine.Custom_Elements.Class_Options.{PC.Class[0].BaseClass.Replace(" ", "")}");
-
-            Panel CustomizeDataHost = CharacterCustomizationMenu.CustomizeDataHost;
 
             if (!CustomizeDataHost.Controls.ContainsTypes(ControlToAddClass1)) {
                 CustomizeDataHost.Controls.Add(Activator.CreateInstance(ControlToAddClass1) as UserControl);
@@ -162,14 +162,11 @@ namespace PlayerEngine.Forms {
         }
 
         private void NextB_Click(object sender, EventArgs e) {
-            CharacterCustomizationMenu.Visible = true;
-
-            Panel CustomizeDataHost = CharacterCustomizationMenu.CustomizeDataHost;
 
             Type BackgroundModifier = typeof(BackgroundCustomization);
 
             if (!CustomizeDataHost.Controls.ContainsTypes(BackgroundModifier)) {
-                CustomizeDataHost.Controls.Add(Activator.CreateInstance(BackgroundModifier) as UserControl);
+                CustomizeDataHost.Controls.Add(Activator.CreateInstance(BackgroundModifier, (object) PC.Background) as UserControl);
                 CustomizeDataHost.Controls[CustomizeDataHost.Controls.Count - 1].Dock = DockStyle.Top;
                 CustomizeDataHost.Controls[CustomizeDataHost.Controls.Count - 1].Visible = false;
             }
@@ -183,12 +180,14 @@ namespace PlayerEngine.Forms {
                 (CustomizeDataHost.Controls[CustomizeDataHost.Controls.Count - 1] as Stat).Update(PC.Lineage);
             }
 
+            CustomizeTab.Visible = true;
+
             Thread.Sleep(100);
 
         }
 
         private void BackCs_Click(object sender, EventArgs e) {
-            CharacterCustomizationMenu.Visible = false;
+            BackgroundTab.Visible = false;
             Thread.Sleep(100);
         }
 
@@ -204,16 +203,35 @@ namespace PlayerEngine.Forms {
         }
 
         private bool Check() {
-            CharacterArgs args = CharacterCustomizationMenu.ValidateForm();
+            CharacterArgs args = ValidateCustomizeForm();
 
             if (args.DataMode != CurMenu.Other)
                 if ((string)args.Data[0] != "" && (((string[])args.Data[3]).Length == 6)) {
                     PC.Name = (string)args.Data[0];
                     PC.Pronouns = (string)args.Data[1];
-                    PC.Alignment = (Alignment)Enum.Parse(typeof(Alignment), ((string)args.Data[3]).Replace(" ", "_"), true);
+                    PC.Alignment = (Alignment)Enum.Parse(typeof(Alignment), ((string)args.Data[2]).Replace(" ", "_"), true);
 
                     foreach (Ability stat in PC.Stats)
                         stat.Score = int.Parse(((string[])args.Data[3])[(int)stat.Name]);
+
+                    List<Item> InventoryAdd = new List<Item>(){
+                        RuntimeSettings.EngineData.Books[0].Items[0],
+                        RuntimeSettings.EngineData.Books[0].Items[1],
+                        RuntimeSettings.EngineData.Books[0].Items[2],
+                        RuntimeSettings.EngineData.Books[0].Items[3],
+                        RuntimeSettings.EngineData.Books[0].Items[4],
+                        RuntimeSettings.EngineData.Books[0].Items[5],
+                        RuntimeSettings.EngineData.Books[0].Items[6],
+                        RuntimeSettings.EngineData.Books[0].Items[9],
+                        RuntimeSettings.EngineData.Books[0].Items[10],
+                    };
+
+                    PC.SpellsKnown.AddRange(RuntimeSettings.EngineData.Books[0].Spells);
+
+                    PC.Inventory.AddRange(InventoryAdd);
+
+                    //PC.Proficiencies.AddRange()
+
 
                     File.WriteAllText(Engine.SaveFileLocation + $"Characters\\{PC.Name} ({PC.Class[0].SubClass} {PC.Class[0].BaseClass}).hro", JsonSerializer.Serialize(PC, Engine.JsonSerializerOptions));
                     return true;
@@ -223,6 +241,52 @@ namespace PlayerEngine.Forms {
 
             /*
             */
+        }
+
+
+        private void InfoCustom_Click(object sender, EventArgs e) {
+            
+            InfoCustom.BackColor = Engine.SelectedColor;
+            StatsCustomize.BackColor = Engine.InactiveColor;
+            foreach (Control c in CustomizeDataHost.Controls) c.Visible = false;
+            InfoDataCustom.Visible = true;
+            InfoDataCustom.Text = CustomizeOptions.SelectedIndex switch {
+                0 => PC.Lineage.Overview,
+                1 => PC.Class[0].Overview,
+                2 => (PC.Class.Count == 2 ? (PC.Class[1].Overview) : PC.Background.Overview),
+                3 => (PC.Class.Count == 2 ? (PC.Background.Overview) : StatText),
+                4 => (PC.Class.Count == 2 ? StatText : ""),
+                _ => "",
+            };
+
+        }
+        private void StatsCustomize_Click(object sender, EventArgs e) {
+            InfoCustom.BackColor = Engine.InactiveColor;
+            StatsCustomize.BackColor = Engine.SelectedColor;
+            foreach (Control c in CustomizeDataHost.Controls) c.Visible = false;
+
+            try { CustomizeDataHost.Controls[CustomizeOptions.Items.Count + CustomizeOptions.SelectedIndex].Visible = true; } catch {
+                foreach (Control c in CustomizeDataHost.Controls) c.Visible = false;
+            }
+
+        }
+
+        public CharacterArgs ValidateCustomizeForm() {
+
+            string name = CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("CharName", true)[0].Text;
+            string pronoun = CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("CharNouns", true)[0].Text;
+            string align = CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("CharAlign", true)[0].Text;
+            string[] stats = ($"{CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("STR", true)[0].Text} " +
+                $"{CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("DEX", true)[0].Text} " +
+                $"{CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("CON", true)[0].Text} " +
+                $"{CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("WIS", true)[0].Text} " +
+                $"{CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("INT", true)[0].Text} " +
+                $"{CustomizeDataHost.Controls.GetControlOfType(typeof(Stat)).Controls.Find("CHA", true)[0].Text}").Split(' ');
+
+
+            return new CharacterArgs(CurMenu.Customize, new object[] { name, pronoun, align, stats });
+
+
         }
         #endregion
 
@@ -239,7 +303,7 @@ namespace PlayerEngine.Forms {
                     try { foreach (LineageTrait ca in rc.LineageTraits) { a += ca.Name + ", "; } a = a.TrimEnd(',', ' '); } catch { a = "None"; }
 
                     if ($"{rc.BaseLineage}{(rc.SubLineage == null ? "" : $" ({rc.SubLineage})")}" == LineageOptions.Text) {
-                        ((DataDisplay)LineageDataHost.Controls[1]).Rtf = $@"{{\rtf1\ansi\sl325\slmult1 \b Name: \b0 {rc.BaseLineage} \line{(rc.SubLineage != null ? $@"\b Subrace: \b0 {rc.SubLineage} \line" : string.Empty)}\b Statistic Spread: \b0 \line\tab\ul STR\ul0 : {rc.StatModifiers[0].Modifier}\tab\ul DEX\ul0 : {rc.StatModifiers[1].Modifier}\tab\ul CON\ul0 : {rc.StatModifiers[2].Modifier}\line\tab\ul WIS\ul0 : {rc.StatModifiers[3].Modifier}\tab\ul INT\ul0 : {rc.StatModifiers[4].Modifier}\tab\tab\ul CHA\ul0 : {rc.StatModifiers[5].Modifier}\line\b \ul Speed\ul0 : \b0 {rc.Speed} \line\b \ul Size\ul0 : \b0 {rc.Size} \line\b Languages: \b0 {l}\line\b Proficincies: \b0 {Prof} \line\b Traits: \b0 {a} \line }}";
+                        ((DataDisplay)LineageDataHost.Controls[1]).Rtf = $@"{{\rtf1\ansi\sl325\slmult1 \b Name: \b0 {rc.BaseLineage} \line{(rc.SubLineage != null ? $@"\b Subrace: \b0 {rc.SubLineage} \line" : string.Empty)}\b Statistic Spread: \b0 \line\tab\ul STR\ul0 : {rc.StatModifiers[0].Modifier}\tab\ul DEX\ul0 : {rc.StatModifiers[1].Modifier}\tab\ul CON\ul0 : {rc.StatModifiers[2].Modifier}\line\tab\ul WIS\ul0 : {rc.StatModifiers[3].Modifier}\tab\tab\ul INT\ul0 : {rc.StatModifiers[4].Modifier}\tab\tab\ul CHA\ul0 : {rc.StatModifiers[5].Modifier}\line\b \ul Speed\ul0 : \b0 {rc.Speed} \line\b \ul Size\ul0 : \b0 {rc.Size} \line\b Languages: \b0 {l}\line\b Proficincies: \b0 {Prof} \line\b Traits: \b0 {a} \line }}";
                     }
 
                     LineageDataHost.Controls[0].Text = rc.Overview;
@@ -382,7 +446,9 @@ namespace PlayerEngine.Forms {
 
         private void Class2Options_SelectedIndexChanged(object sender, EventArgs e) { ClassUpdate(sender, e, false); }
 
-        private void CustomizeOptions_SelectedIndexChanged(object sender, EventArgs e) { } //InfoCustom_Click(sender, e); }
+        private void CustomizeOptions_SelectedIndexChanged(object sender, EventArgs e) {
+            InfoCustom_Click(sender, e);
+        } 
 
         private void ClickMe_Click(object sender, EventArgs e) {
             openFileDialog1.ShowDialog();
@@ -391,11 +457,12 @@ namespace PlayerEngine.Forms {
                 byte[] b = new byte[openFileDialog1.OpenFile().Length];
                 openFileDialog1.OpenFile().Read(b, 0, b.Length);
                 PC.Illustration = Convert.ToBase64String(b);
-             //   CustomPreview.BackgroundImage = (Image)new ImageConverter().ConvertFrom(Convert.FromBase64String(PC.Illustration));
+                CustomPreview.BackgroundImage = (Image)new ImageConverter().ConvertFrom(Convert.FromBase64String(PC.Illustration));
             } catch { }
 
         }
 
         private void CustomPreview_Click(object sender, EventArgs e) { ClickMe_Click(sender, e); }
+
     }
 }

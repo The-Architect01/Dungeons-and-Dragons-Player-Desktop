@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 *.pptx
 /DDPlayerEngine/Data/CharacterExporter.cs
+/DDPlayerEngine/Resources
+/DDPlayerEngine/Cipher.cs

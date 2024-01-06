@@ -37,7 +37,7 @@ namespace PlayerEngine.Custom_Elements.Play_Engine_Elements {
                 ItemType.Text = "🔮";
                 RollDamage.Dispose();
             } else {
-                ItemType.Text = "🪄";
+                ItemType.Text = "✨";
                 RollDamage.Text = $"{Spell.NumDice}{Spell.DamageDie} {Spell.DamageType}";
                 RollDamage.Click += delegate { new RollDice(defaultdie: Spell.DamageDie, Count: Spell.NumDice).ShowDialog(); };
             }

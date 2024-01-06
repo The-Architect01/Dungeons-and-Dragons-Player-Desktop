@@ -5,6 +5,7 @@ using PlayerEngine.Data;
 
 namespace PlayerEngine.Custom_Elements.Class_Options {
     public partial class Bard : UserControl {
+
         public Bard() {
             InitializeComponent();
             foreach (Control c in Controls)
@@ -15,6 +16,11 @@ namespace PlayerEngine.Custom_Elements.Class_Options {
             Item1.Font = new Font(RuntimeSettings.DefaultFont, 12, FontStyle.Bold);
             Item2.Font = new Font(RuntimeSettings.DefaultFont, 12, FontStyle.Bold);
             Item3.Font = new Font(RuntimeSettings.DefaultFont, 12, FontStyle.Bold);
+
+        }
+
+        private void button1_Click(object sender, System.EventArgs e) {
+            //            new SpellList(PC).ShowDialog();
         }
     }
 }

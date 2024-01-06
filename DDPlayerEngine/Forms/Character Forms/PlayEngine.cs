@@ -48,7 +48,24 @@ namespace PlayerEngine.Forms {
 
             Display.Controls.Add(new SummaryMenu(PC));
             Display.Controls.Add(new ActionMenu(PC));
+            Display.Controls.Add(new TraitsMenu(PC));
+            Display.Controls.Add(new RichTextBox() { Dock = DockStyle.Fill, Text = PC.Inventory.ToString(true) });
+            Display.Controls.Add(new BackgroundViewer(PC));
+            Display.Controls.Add(new RichTextBox() { Dock = DockStyle.Fill });
+            //((RichTextBox)Display.Controls[(int)View.Inventory]).TextChanged += OnRTFEdit;
+            //((RichTextBox)Display.Controls[(int)View.Notes]).TextChanged += OnRTFEdit;
         }
+
+        void OnRTFEdit(object sender, EventArgs e) {
+            int cursor = ((RichTextBox)sender).SelectionStart;
+            try {
+               ((RichTextBox)sender).Rtf = ((RichTextBox)sender).Text;
+                ((RichTextBox)sender).SelectionStart = cursor;
+            } catch { } finally {
+                ((RichTextBox)sender).SelectionStart = cursor;
+            }
+        }
+
 
         private void PlayEngine_FormClosed(object sender, FormClosedEventArgs e) {
             Program.MM.Show();
@@ -85,7 +102,8 @@ namespace PlayerEngine.Forms {
 
         private void PlayEngine_Load(object sender, EventArgs e) {
             foreach (Control c in Controls)
-                c.Font = new Font(RuntimeSettings.DefaultFont, 10, FontStyle.Regular);
+                if (c.GetType() != typeof(Panel))
+                    c.Font = new Font(RuntimeSettings.DefaultFont, 10, FontStyle.Regular);
 
             CharName.Font = new Font(RuntimeSettings.DefaultFont, 24, FontStyle.Bold);
             Summary.Font = new Font(RuntimeSettings.DefaultFont, 12, FontStyle.Italic);
@@ -104,7 +122,7 @@ namespace PlayerEngine.Forms {
             
         }
 
-        enum View { Summary, Actions, Background, Inventory, Notes, Traits }
+        enum View { Summary, Actions, Traits, Inventory, Background, Notes }
         void SwitchView(View view) {
             SummaryTab.BackColor = view == View.Summary ? Engine.SelectedColor : Engine.InactiveColor;
             ActionTab.BackColor = view == View.Actions ? Engine.SelectedColor : Engine.InactiveColor;

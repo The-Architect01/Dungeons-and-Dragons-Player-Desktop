@@ -33,7 +33,7 @@
     <ProductName>Tabletop Character Manager</ProductName>
     <PublisherName>Neal Birchfield</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -60,6 +60,8 @@
     <NoWarn>CS1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -84,19 +86,28 @@
     <ApplicationIcon>D202.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>7D6FA5F21B61F27045F702CF8532DB08C47F8ABB</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>4D7D81915D5DCEA546297E6CC1BCFFBBCA96A732</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>DDPlayerEngine_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Grumpy.Lion.key.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Grumpy.Lion.key.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -273,6 +284,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cipher.cs" />
     <Compile Include="Custom Elements\BackgroundCustomization.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -309,11 +321,23 @@
     <Compile Include="Custom Elements\Play Engine Elements\ActionMenu.Designer.cs">
       <DependentUpon>ActionMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\BackgroundViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\BackgroundViewer.Designer.cs">
+      <DependentUpon>BackgroundViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Custom Elements\Play Engine Elements\SummaryMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Custom Elements\Play Engine Elements\SummaryMenu.Designer.cs">
       <DependentUpon>SummaryMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\TraitsMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\Play Engine Elements\TraitsMenu.Designer.cs">
+      <DependentUpon>TraitsMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Custom Elements\Previews\Adopt.cs">
       <SubType>UserControl</SubType>
@@ -338,6 +362,12 @@
     </Compile>
     <Compile Include="Custom Elements\Play Engine Elements\WeaponPreview.Designer.cs">
       <DependentUpon>WeaponPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custom Elements\SpellList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Custom Elements\SpellList.Designer.cs">
+      <DependentUpon>SpellList.cs</DependentUpon>
     </Compile>
     <Compile Include="Custom Elements\Stat.cs">
       <SubType>UserControl</SubType>
@@ -411,6 +441,12 @@
     <Compile Include="Forms\MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Pop Ups\ErrorMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Pop Ups\ErrorMessage.Designer.cs">
+      <DependentUpon>ErrorMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Pop Ups\RollDice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -467,8 +503,14 @@
     <EmbeddedResource Include="Custom Elements\Play Engine Elements\ActionMenu.resx">
       <DependentUpon>ActionMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Play Engine Elements\BackgroundViewer.resx">
+      <DependentUpon>BackgroundViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Custom Elements\Play Engine Elements\SummaryMenu.resx">
       <DependentUpon>SummaryMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custom Elements\Play Engine Elements\TraitsMenu.resx">
+      <DependentUpon>TraitsMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Custom Elements\Previews\Adopt.resx">
       <DependentUpon>Adopt.cs</DependentUpon>
@@ -497,6 +539,9 @@
     <EmbeddedResource Include="Forms\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Pop Ups\ErrorMessage.resx">
+      <DependentUpon>ErrorMessage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pop Ups\RollDice.resx">
       <DependentUpon>RollDice.cs</DependentUpon>
     </EmbeddedResource>
@@ -523,6 +568,7 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
+    <None Include="Grumpy.Lion.key.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
@@ -538,16 +584,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Resources\Chivo-1og4.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="D202.ico" />
-    <Content Include="Resources\info.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="Resources\README.txt" />
+    <None Include="Resources\OFL.txt" />
+    <None Include="Resources\Quicksand-VariableFont_wght.ttf" />
     <None Include="Resources\Ranged.png" />
     <None Include="Resources\Melee.png" />
     <None Include="Resources\CharacterSheet.pptx" />

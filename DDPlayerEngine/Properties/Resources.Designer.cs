@@ -71,32 +71,12 @@ namespace PlayerEngine.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Chivo_1og4 {
-            get {
-                object obj = ResourceManager.GetObject("Chivo_1og4", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon D202 {
             get {
                 object obj = ResourceManager.GetObject("D202", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to license: SIL Open Font License (OFL)
-        ///link: https://www.fontspace.com/chivo-font-f14094.
-        /// </summary>
-        internal static string info {
-            get {
-                return ResourceManager.GetString("info", resourceCulture);
             }
         }
         
@@ -111,12 +91,66 @@ namespace PlayerEngine.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copyright 2011 The Quicksand Project Authors (https://github.com/andrew-paglinawan/QuicksandFamily), with Reserved Font Name “Quicksand”.
+        ///
+        ///This Font Software is licensed under the SIL Open Font License, Version 1.1.
+        ///This license is copied below, and is also available with a FAQ at:
+        ///http://scripts.sil.org/OFL
+        ///
+        ///
+        ///-----------------------------------------------------------
+        ///SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+        ///-----------------------------------------------------------
+        ///
+        ///PREAMBLE
+        ///The g [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string OFL {
+            get {
+                return ResourceManager.GetString("OFL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Quicksand_VariableFont_wght {
+            get {
+                object obj = ResourceManager.GetObject("Quicksand_VariableFont_wght", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Ranged {
             get {
                 object obj = ResourceManager.GetObject("Ranged", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quicksand Variable Font
+        ///=======================
+        ///
+        ///This download contains Quicksand as both a variable font and static fonts.
+        ///
+        ///Quicksand is a variable font with this axis:
+        ///  wght
+        ///
+        ///This means all the styles are contained in a single file:
+        ///  Quicksand-VariableFont_wght.ttf
+        ///
+        ///If your app fully supports variable fonts, you can now pick intermediate styles
+        ///that aren’t available as static fonts. Not all apps support variable fonts, and
+        ///in those cases you can use the static font files for Quicksand:
+        ///  static/Quicksan [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string README {
+            get {
+                return ResourceManager.GetString("README", resourceCulture);
             }
         }
     }

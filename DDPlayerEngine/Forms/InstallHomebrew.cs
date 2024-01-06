@@ -53,7 +53,7 @@ namespace PlayerEngine.Forms {
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.UserAgent.TryParseAdd("request");
 
-            using HttpResponseMessage response = client.GetAsync("https://api.github.com/repos/The-Architect01/Dungeons-and-Dragons-Player-Desktop/issues?label=Adopt&label!=FLAGGED").Result;
+            using HttpResponseMessage response = client.GetAsync("https://api.github.com/repos/The-Architect01/Dungeons-and-Dragons-Player-Desktop/issues?labels=Adopt&labels!=FLAGGED").Result;
             response.EnsureSuccessStatusCode();
             var responseBody = response.Content.ReadAsStringAsync().Result;
 

@@ -7,13 +7,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Web;
 using System.Windows.Forms;
 
 using PlayerEngine.Data.APIs;
+using PlayerEngine.Forms.Pop_Ups;
 using PlayerEngine.Properties;
+
 namespace PlayerEngine.Data {
 
 /// <summary>
@@ -22,9 +24,9 @@ namespace PlayerEngine.Data {
     public static class RuntimeSettings {
         static RuntimeSettings() {
             PrivateFontCollection tmp = new();
-            IntPtr FontRef = Marshal.AllocCoTaskMem(Resources.Chivo_1og4.Length);
-            Marshal.Copy(Resources.Chivo_1og4, 0, FontRef, Resources.Chivo_1og4.Length);
-            tmp.AddMemoryFont(FontRef, Resources.Chivo_1og4.Length);
+            IntPtr FontRef = Marshal.AllocCoTaskMem(Resources.Quicksand_VariableFont_wght.Length);
+            Marshal.Copy(Resources.Quicksand_VariableFont_wght, 0, FontRef, Resources.Quicksand_VariableFont_wght.Length);
+            tmp.AddMemoryFont(FontRef, Resources.Quicksand_VariableFont_wght.Length);
             DefaultFont = tmp.Families[0];
         }
 
@@ -41,10 +43,22 @@ namespace PlayerEngine.Data {
         /// Checks if the user is online, if online update, else use cached.
         /// </summary>
         public static void Update() {
-            if (Engine.IsOnline)
-                CheckForUpdates();
-            else
+            try {
+                if (Engine.IsOnline && (DateTime.UtcNow - File.GetLastWriteTime(Engine.SaveFileLocation + "EngineData")) > Engine.ForceUpdate)
+                    CheckForUpdates();
+                else
+                    EngineData = JsonSerializer.Deserialize<EngineData>(File.ReadAllText(Engine.SaveFileLocation + "EngineData"));
+            } catch (Exception e) when (e is HttpException) {
                 EngineData = JsonSerializer.Deserialize<EngineData>(File.ReadAllText(Engine.SaveFileLocation + "EngineData"));
+            } catch (Exception e) when (e is FileNotFoundException) {
+                if (Engine.IsOnline) {
+                    CheckForUpdates();
+                } else {
+                    Engine.ShowCriticalError(new HttpException("You are not connected to the internet! Cannot fetch data."));
+                }
+            } catch (Exception e) {
+                Engine.ShowCriticalError(e);
+            }
         }
 
         
@@ -68,6 +82,8 @@ namespace PlayerEngine.Data {
 
             foreach (string file in Directory.GetFiles(Engine.SaveFileLocation + "Cache\\Books").Union(Directory.GetFiles(Engine.SaveFileLocation + "Cache\\Homebrews"))) try { EngineData.Books.Add(JsonSerializer.Deserialize<Book>(File.ReadAllText(file), Engine.JsonSerializerOptions)); } catch { }
 
+            Settings.Default.LastSync = DateTime.Now.Date;
+            Settings.Default.Save();
         }
 
     }
@@ -79,17 +95,36 @@ namespace PlayerEngine.Data {
         public static Color InactiveColor { get; } = Color.LightGray;
         public static Color SelectedColor { get; } = Color.DimGray;
 
-
         public static string SaveSymbolic = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Tabletop Character Manager\\";
         public static string SaveFileLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Tabletop Character Manager\\";
         public static string GitRepo = "https://raw.githubusercontent.com/The-Architect01/Dungeons-and-Dragons-Player-Desktop/master/";
         public static string GitAPI = "https://api.github.com/repos/The-Architect01/Dungeons-and-Dragons-Player-Desktop/";
 
+        public static TimeSpan ForceUpdate = new TimeSpan(days:7,0,0,0);
+
+        public static void ShowError(Exception e) {
+            new ErrorMessage(e).ShowDialog();
+        }
+
+        public static void ShowCriticalError(Exception e) {
+            new ErrorMessage(e).ShowDialog();
+            Application.Exit();
+        }
+
         /// <summary>
         /// Checks if the user is Online
         /// </summary>
-        public static bool IsOnline { get { try { return new Ping().Send(GitRepo).Status == IPStatus.Success; } catch { return false; } } }
+        //public static bool IsOnline { get { try { return new Ping().Send(GitRepo).Status == IPStatus.Success; } catch { return false; } } }
+        public static bool IsOnline {
+            get {
+                foreach (NetworkInterface NetIO in NetworkInterface.GetAllNetworkInterfaces())
 
+                    if (NetIO.OperationalStatus == OperationalStatus.Up)
+                        return true;
+
+                return false;
+            }
+        }
 
         public static int ParseHitDie(this HitDie hitDie) {
             return hitDie switch {
@@ -106,6 +141,7 @@ namespace PlayerEngine.Data {
 
         public static bool RequireUpdate(string URL, string checkFile) {
             if (!File.Exists(checkFile)) return true;
+            if (Settings.Default.LastSync == DateTime.Now.Date) { return false; }
             using HttpClient client = new();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.UserAgent.TryParseAdd("request");
@@ -188,13 +224,55 @@ namespace PlayerEngine.Data {
             return 10 + TargetAbility.Modifier + (int)(Target.HasExpertise ? 2 * Proficincy(PC.Level) :
                  Target.HasProficincy ? Proficincy(PC.Level) :
                  Target.HasHalfProficincy ? .5f * Proficincy(PC.Level) : 0
-                );
+           );
         }
 
-        public static void SetText(this Microsoft.Office.Interop.PowerPoint.Shape me, string Text) {
-            me.TextFrame.TextRange.Text = Text;
-        }
+        public static void SetText(this Microsoft.Office.Interop.PowerPoint.Shape me, string Text) { me.TextFrame.TextRange.Text = Text; }
         public static string GetText(this Microsoft.Office.Interop.PowerPoint.Shape me) { return me.TextFrame.TextRange.Text; }
+        
+        public static byte[] Serialize(this Character me) {
+            return JsonSerializer.SerializeToUtf8Bytes(me, JsonSerializerOptions);
+        }
+
+        public static bool HasFlag<T>(this T me, params T[] flags ) where T : Enum {
+            
+            foreach(T flag in flags) 
+                if (me.HasFlag(flag)) 
+                    return true;
+
+            return false;
+        }
+
+        public static string ToString(this List<Item> me, bool Overloaded = true) {
+            string Line1 = $"[ARMOR]\n=====================================\n";
+            foreach(var item in me.Distinct()) {
+                if (item.Type.HasFlag(Item.ItemType.Armor)) {
+                    Line1 += $"{item.Name} x{me.Where(e => e.Name == item.Name).Count()}\n";
+                }
+            }
+
+            string Line2 = $"\n[WEAPONS]\n=====================================\n";
+            foreach (var item in me.Distinct()) {
+                if (item.Type.HasFlag(Item.ItemType.SimpleMeleeWeapon, Item.ItemType.SimpleRangeWeapon, Item.ItemType.MartialMeleeWeapon, Item.ItemType.MartialRangeWeapon)) {
+                    Line2 += $"{item.Name} x{me.Where(e => e.Name == item.Name).Count()}\n";
+                }
+            }
+
+            string Line3 = $"\n[MAGIC ITEMS]\n=====================================\n";
+            foreach (var item in me.Distinct()) {
+                if (item.Type.HasFlag(Item.ItemType.Potion, Item.ItemType.Wand, Item.ItemType.ArcaneFocus, Item.ItemType.Staff, Item.ItemType.Rod, Item.ItemType.Scroll, Item.ItemType.Wonderous, Item.ItemType.Ring, Item.ItemType.Staff)) {
+                    Line3 += $"{item.Name} x{me.Where(e => e.Name == item.Name).Count()}\n";
+                }
+            }
+
+            string Line4 = $"\n[OTHER]\n=====================================\n";
+            foreach (var item in me.Distinct()) {
+                if (item.Type.HasFlag(Item.ItemType.Other, Item.ItemType.AdventureGear, Item.ItemType.ArtisanTool, Item.ItemType.GamingSet, Item.ItemType.MusicalInstrument, Item.ItemType.Tool, Item.ItemType.Vehicle, Item.ItemType.Trinket, Item.ItemType.TradeGood, Item.ItemType.Food, Item.ItemType.Treasure, Item.ItemType.Coin)) {
+                    Line4 += $"{item.Name} x{me.Where(e => e.Name == item.Name).Count()}\n";
+                }
+            }
+            return Line1 + Line2 + Line3 + Line4;
+        }
         #endregion
     }
 
@@ -211,7 +289,6 @@ namespace PlayerEngine.Data {
         Sorcerer = 0xFF39A78D,//3AA8C1,00CCCC,CF71AF
         Warlock = 0xFF645394,//B768A2,86608E,414A4C
         Wizard = 0xFF7289DA, //7289da,ADD8E6,AFDBF5,80DAEB,81D8D0
-
     }
 
 }

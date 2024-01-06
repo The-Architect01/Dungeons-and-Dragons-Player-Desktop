@@ -218,6 +218,7 @@
             // EquipOption1_3a
             // 
             this.EquipOption1_3a.AutoSize = true;
+            this.EquipOption1_3a.Enabled = false;
             this.EquipOption1_3a.Location = new System.Drawing.Point(115, 49);
             this.EquipOption1_3a.Name = "EquipOption1_3a";
             this.EquipOption1_3a.Size = new System.Drawing.Size(115, 17);
@@ -333,6 +334,7 @@
             // EquipOption3_2a
             // 
             this.EquipOption3_2a.AutoSize = true;
+            this.EquipOption3_2a.Enabled = false;
             this.EquipOption3_2a.Location = new System.Drawing.Point(115, 26);
             this.EquipOption3_2a.Name = "EquipOption3_2a";
             this.EquipOption3_2a.Size = new System.Drawing.Size(120, 17);
@@ -363,12 +365,14 @@
             // 
             // button1
             // 
+            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(115, 7);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(162, 23);
             this.button1.TabIndex = 6;
             this.button1.Text = "Choose Spells";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 

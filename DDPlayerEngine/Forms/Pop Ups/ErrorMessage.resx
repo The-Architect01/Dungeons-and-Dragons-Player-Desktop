@@ -117,26 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="D202" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\D202.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pictureBox1.ImageLocation" xml:space="preserve">
+    <value>https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1e3325c6-d618-4811-9c43-58c135902ccc/d96piio-fc5ba0b6-0267-4510-a930-8e86d03fec4e.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzFlMzMyNWM2LWQ2MTgtNDgxMS05YzQzLTU4YzEzNTkwMmNjY1wvZDk2cGlpby1mYzViYTBiNi0wMjY3LTQ1MTAtYTkzMC04ZTg2ZDAzZmVjNGUuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.r6G_IHXBd_rCAUYJgVoX37RQukqGvtR-tSrD-vZVHsw</value>
   </data>
-  <data name="CharacterSheet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CharacterSheet.pptx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Melee" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Melee.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ranged" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ranged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OFL" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OFL.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="Quicksand_VariableFont_wght" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Quicksand-VariableFont_wght.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="README" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\README.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="WarnMessage.Text" xml:space="preserve">
+    <value>That wasn't supposed to happen. It seems our backend dragon fell asleep again.
+
+I rely on user submitted bug reports to fix issues.
+
+In your report please include the following information:
+    *  The exception report below
+    *  A detailed account of what happened</value>
   </data>
 </root>

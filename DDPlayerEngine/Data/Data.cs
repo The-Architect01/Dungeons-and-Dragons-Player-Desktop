@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace PlayerEngine.Data {
@@ -200,7 +201,10 @@ namespace PlayerEngine.Data {
         /// <param name="data">The data to retrieve</param>
         /// <returns></returns>
         public string FindData(string data) {
-            return data;
+            return data switch {
+                string s when (new string[] { "STR", "DEX", "CON", "WIS", "INT", "CHA" }.Contains(s))=> StatModifiers[(int)Enum.Parse(typeof(StatName), s)].ToString(),
+                _ => ""
+            };
         }
 
     }
@@ -609,18 +613,22 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// Creatures act as their conscience directs with little regard to what others expect
         /// </summary>
+        [Description("Chaotic Good")]
         Chaotic_Good,
         /// <summary>
         /// Creatures try to do their best to help others according to their needs
         /// </summary>
+        [Description("Neutral Good")]
         Neutral_Good,
         /// <summary>
         /// Creatures that can be counted on to do the right thing as expected by society
         /// </summary>
+        [Description("Lawful Good")]
         Lawful_Good,
         /// <summary>
         /// Creatures follow their wims, holding their personal freedom highest
         /// </summary>
+        [Description("Chaotic Neutral")]
         Chaotic_Neutral,
         /// <summary>
         /// Moral questions? Nah.
@@ -629,18 +637,22 @@ namespace PlayerEngine.Data {
         /// <summary>
         /// Creatures act in accordance with law, tradition, or personal codes
         /// </summary>
+        [Description("Lawful Neutral")]
         Lawful_Neutral,
         /// <summary>
         /// Creatures act with arbitrary violence
         /// </summary>
+        [Description("Chaotic Evil")]
         Chaotic_Evil,
         /// <summary>
         /// Creatures who do whatever they can get away with, without compassion or qualms
         /// </summary>
+        [Description("Neutral Evil")]
         Neutral_Evil,
         /// <summary>
         /// Creatures methodically take what they want, within the limits of a code or tradition
         /// </summary>
+        [Description("Lawful Evil")]
         Lawful_Evil,
         Unaligned
     }
@@ -1152,15 +1164,12 @@ namespace PlayerEngine.Data {
 
         public bool IsWeapon {
             get {
-                return Type.HasFlag(ItemType.SimpleMeleeWeapon) ||
-                Type.HasFlag(ItemType.MartialMeleeWeapon) ||
-                Type.HasFlag(ItemType.MartialRangeWeapon) ||
-                Type.HasFlag(ItemType.SimpleRangeWeapon);
+                return Type.HasFlag(ItemType.SimpleMeleeWeapon, ItemType.MartialMeleeWeapon, ItemType.MartialRangeWeapon, ItemType.SimpleRangeWeapon);
             }
         }
 
         public string ParseAsWeapon(Character PC) {
-            bool IsMelee = Type.HasFlag(ItemType.SimpleMeleeWeapon) || Type.HasFlag(ItemType.MartialMeleeWeapon);
+            bool IsMelee = Type.HasFlag(ItemType.SimpleMeleeWeapon, ItemType.MartialMeleeWeapon);
             bool IsProficient = PC.Proficiencies.Contains(this);
 
             return $"{Name} :: {(PC.Stats[(IsMelee ? 0 : 1)].Modifier + (IsProficient ? Engine.Proficincy(PC.Level) : 0)).ParseAsString()}" +
@@ -1181,7 +1190,7 @@ namespace PlayerEngine.Data {
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public static readonly Language Common = new(){
+        public static Language Common = new(){
             Name = "Common",
             Description = ""
         };

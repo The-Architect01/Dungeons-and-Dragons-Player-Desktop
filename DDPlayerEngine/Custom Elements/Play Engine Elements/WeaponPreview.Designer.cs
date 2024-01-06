@@ -43,28 +43,29 @@ namespace PlayerEngine.Custom_Elements.Play_Engine_Elements {
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(575, 42);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(570, 42);
             this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanel1.WrapContents = false;
             // 
             // ItemType
             // 
             this.ItemType.AutoSize = true;
             this.ItemType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ItemType.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.ItemType.Font = new System.Drawing.Font("Segoe UI Symbol", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ItemType.Location = new System.Drawing.Point(3, 0);
             this.ItemType.Name = "ItemType";
-            this.ItemType.Size = new System.Drawing.Size(54, 37);
+            this.ItemType.Size = new System.Drawing.Size(52, 45);
             this.ItemType.TabIndex = 3;
-            this.ItemType.Text = "⚔️";
+            this.ItemType.Text = "🏹";
             this.ItemType.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ItemName
             // 
             this.ItemName.AutoSize = true;
             this.ItemName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ItemName.Location = new System.Drawing.Point(63, 0);
+            this.ItemName.Location = new System.Drawing.Point(61, 0);
             this.ItemName.Name = "ItemName";
-            this.ItemName.Size = new System.Drawing.Size(42, 37);
+            this.ItemName.Size = new System.Drawing.Size(42, 45);
             this.ItemName.TabIndex = 4;
             this.ItemName.Text = "Dagger";
             this.ItemName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -73,9 +74,9 @@ namespace PlayerEngine.Custom_Elements.Play_Engine_Elements {
             // 
             this.RollAttack.AutoSize = true;
             this.RollAttack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RollAttack.Location = new System.Drawing.Point(111, 3);
+            this.RollAttack.Location = new System.Drawing.Point(109, 3);
             this.RollAttack.Name = "RollAttack";
-            this.RollAttack.Size = new System.Drawing.Size(75, 31);
+            this.RollAttack.Size = new System.Drawing.Size(75, 39);
             this.RollAttack.TabIndex = 7;
             this.RollAttack.Text = "+1";
             this.RollAttack.UseVisualStyleBackColor = true;
@@ -84,9 +85,9 @@ namespace PlayerEngine.Custom_Elements.Play_Engine_Elements {
             // 
             this.RollDamage.AutoSize = true;
             this.RollDamage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RollDamage.Location = new System.Drawing.Point(192, 3);
+            this.RollDamage.Location = new System.Drawing.Point(190, 3);
             this.RollDamage.Name = "RollDamage";
-            this.RollDamage.Size = new System.Drawing.Size(127, 31);
+            this.RollDamage.Size = new System.Drawing.Size(127, 39);
             this.RollDamage.TabIndex = 8;
             this.RollDamage.Text = "1d4 Bludgeoning";
             this.RollDamage.UseVisualStyleBackColor = true;
@@ -95,9 +96,9 @@ namespace PlayerEngine.Custom_Elements.Play_Engine_Elements {
             // 
             this.ItemNotes.AutoSize = true;
             this.ItemNotes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ItemNotes.Location = new System.Drawing.Point(325, 0);
+            this.ItemNotes.Location = new System.Drawing.Point(323, 0);
             this.ItemNotes.Name = "ItemNotes";
-            this.ItemNotes.Size = new System.Drawing.Size(46, 37);
+            this.ItemNotes.Size = new System.Drawing.Size(46, 45);
             this.ItemNotes.TabIndex = 6;
             this.ItemNotes.Text = "Thrown,";
             this.ItemNotes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -107,7 +108,7 @@ namespace PlayerEngine.Custom_Elements.Play_Engine_Elements {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "WeaponPreview";
-            this.Size = new System.Drawing.Size(575, 42);
+            this.Size = new System.Drawing.Size(570, 42);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

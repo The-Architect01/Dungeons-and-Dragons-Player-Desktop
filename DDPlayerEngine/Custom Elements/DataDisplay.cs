@@ -37,24 +37,24 @@ namespace PlayerEngine.Custom_Elements {
                         case DisplaySetting.Background:
                             foreach (Book b in RuntimeSettings.EngineData.Books) {
                                 foreach (Background bg in b.Backgrounds) {
-                                    if (bg.FindData(text) != "")
-                                        MessageBox.Show(bg.FindData(text), Application.ProductName + " Help");
+                                    //if (bg.FindData(text) != "")
+                                        //MessageBox.Show(bg.FindData(text), Application.ProductName + " Help");
                                 }
                             }
                             break;
                         case DisplaySetting.Lineage:
                             foreach (Book b in RuntimeSettings.EngineData.Books) {
                                 foreach (Lineage r in b.Lineages) {
-                                    if (r.FindData(text) != "")
-                                        MessageBox.Show(r.FindData(text), Application.ProductName + " Help");
+                                    //if (r.FindData(text) != "")
+                                        //MessageBox.Show(r.FindData(text), Application.ProductName + " Help");
                                 }
                             }
                             break;
                         case DisplaySetting.Class:
                             foreach (Book b in RuntimeSettings.EngineData.Books) {
                                 foreach (Class cl in b.Classes) {
-                                    if (cl.FindData(text) != "")
-                                        MessageBox.Show(cl.FindData(text), Application.ProductName + " Help");
+                                    //if (cl.FindData(text) != "")
+                                        //MessageBox.Show(cl.FindData(text), Application.ProductName + " Help");
                                 }
                             }
                             break;
